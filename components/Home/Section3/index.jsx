@@ -1,3 +1,4 @@
+import Card from "./Card";
 export default () => {
   return (
     <div className=" px-16">
@@ -5,6 +6,11 @@ export default () => {
         <span className="from-[#10B5CB] mt-1 to-[#0073A8] bg-gradient-to-b rounded-l-full absolute h-8 w-2 " />
         <span className="ml-4">Similar Trips</span>
       </h2>
+      <div className="flex mt-10 gap-8 justify-center">
+        <Card />
+        <Card />
+        <Card />
+      </div>
     </div>
   );
 };
