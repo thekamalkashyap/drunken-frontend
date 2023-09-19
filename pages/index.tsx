@@ -1,8 +1,12 @@
-import { Hero } from "@/components"
+import { Hero, Section2, Section3 } from "@/components";
 const index = () => {
   return (
-    <main className=""><Hero/></main>
-  )
-}
+    <main className="">
+      <Hero />
+      <Section2 />
+      <Section3 />
+    </main>
+  );
+};
 
-export default index
+export default index;
