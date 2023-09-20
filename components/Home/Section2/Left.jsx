@@ -25,10 +25,10 @@ export default () => {
           <p className=" font-semibold">Srinagar</p>
         </div>
       </div>
-      <div className="mt-8 bg-gray-400 font-semibold rounded-3xl p-6 h-[35rem]">
+      <div className="mt-10 bg-gray-400 font-semibold rounded-3xl p-6 h-[35rem]">
         Description <br /> Inclusion <br /> Exclusion <br /> Dates+Book
       </div>
-      <div className="mt-8 bg-gray-400 font-semibold rounded-3xl p-6 h-[15rem]">
+      <div className="mt-8 bg-gray-400 font-semibold rounded-3xl p-6 h-[18rem]">
         Photos/ Videos
       </div>
       <div className="flex mt-16 justify-evenly items-center">

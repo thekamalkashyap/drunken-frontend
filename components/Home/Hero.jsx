@@ -9,7 +9,7 @@ export default () => {
       </p>
       <div className="flex mt-12 justify-end gap-8"
       >
-        <button className="bg-white py-2 px-8 text-black rounded-full">Get Itinerary</button>
+        <button className="bg-white py-2 px-8 rounded-full  text-[#0073A8]">Get Itinerary</button>
         <button className=" from-[#10B5CB] bg-[#0073A8] bg-gradient-to-r py-2 px-10 text-white rounded-full">Book Now</button>
       </div>
     </div>

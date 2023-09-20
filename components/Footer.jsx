@@ -16,7 +16,9 @@ export default () => {
       </div>
       <div className="bg-white flex p-5 text-black h-[15rem] w-[60vw] rounded-t-2xl">
         <div className="flex-[3] p-4">
-          <h4>About Drunken Roads</h4>
+          <h4 className="mb-2 text-black font-bold text-lg">
+            About Drunken Roads
+          </h4>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -28,12 +30,79 @@ export default () => {
           </p>
         </div>
         <div className="flex-1 p-4">
-          <h4>QUICK LINKS</h4>
-          <ul>
-            <li>Privacy Policy</li>
-            <li>Cancellation Policy</li>
-            <li>Terms & Conditions</li>
-            <li>Disclaimer</li>
+          <h4 className="mb-2 text-black font-bold text-lg">QUICK LINKS</h4>
+          <ul className="flex items-start justify-center flex-col gap-2">
+            <li className="flex items-center justify-start gap-0 hover:gap-2 transition-all cursor-pointer duration">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-arrow-right-short"
+                viewBox="0 0 16 16"
+                className="mr-2"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                />
+              </svg>
+              Privacy Policy
+            </li>
+            <li className="flex items-center justify-start gap-0 hover:gap-2 transition-all cursor-pointer duration">
+              {" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-arrow-right-short"
+                viewBox="0 0 16 16"
+                className="mr-2"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                />
+              </svg>
+              Cancellation Policy
+            </li>
+            <li className="flex items-center justify-start gap-0 hover:gap-2 transition-all cursor-pointer duration">
+              {" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-arrow-right-short"
+                viewBox="0 0 16 16"
+                className="mr-2"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                />
+              </svg>
+              Terms & Conditions
+            </li>
+            <li className="flex items-center justify-start gap-0 hover:gap-2 transition-all cursor-pointer duration">
+              {" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-arrow-right-short"
+                viewBox="0 0 16 16"
+                className="mr-2"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                />
+              </svg>
+              Disclaimer
+            </li>
           </ul>
         </div>
       </div>

@@ -1,6 +1,6 @@
 export default function Card ({trip}){
   return (
-    <div className="flex text-white">
+    <div className="flex text-white max-w-sm">
       <div className=" flex flex-col justify-end p-8 w-[450px] h-[400px] rounded-2xl bg-no-repeat bg-cover bg-[linear-gradient(to_bottom,rgba(00,00,00,0),rgba(0,0,0,0.8)),url('/Home/kashmir.png')] ">
         <div className="flex gap-8">
           <div className="flex items-center gap-2">
@@ -18,14 +18,14 @@ export default function Card ({trip}){
         </div>
         <h2>{trip.description}</h2>
         <div className="flex">
-          <span>Starts at</span>
+          <span className="mr-2">Starts at</span>
           <span>₹{trip.price}/-</span>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center justify-start">
           <figure>
             <img src="/Home/calendarw.png" alt="" />
           </figure>
-          <span>{trip.startsAt} Jun</span>
+          <span>{trip.startsAt} - {trip.endAt}</span>
         </div>
       </div>
     </div>
