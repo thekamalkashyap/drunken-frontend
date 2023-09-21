@@ -1,5 +1,26 @@
-export default () => {
+import { useEffect, useState } from "react";
+import { useRouter } from 'next/router';
 
+
+export default () => {
+  const router = useRouter();
+  const searchParams = router.query;
+  console.log(searchParams)
+  const [currentTrip, setCurrentTrip] = useState();
+  // Fetching trips from backend
+  const fetchTrip = async () => {
+    const response = await fetch(`http://localhost:5000/api/trips/getTrip/${searchParams.id}`);
+    const data = await response.json();
+    console.log(data);
+    setCurrentTrip(data);
+  };
+
+  useEffect(() => {
+    if (!currentTrip) {
+      fetchTrip();
+    }
+  }, []);
+  
   return (
     <div className="flex-[4] mr-6">
       <div className=" ml-3 flex gap-6">

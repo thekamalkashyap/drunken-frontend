@@ -38,9 +38,8 @@ export default () => {
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-arrow-right-short"
+                className="bi bi-arrow-right-short mr-2"
                 viewBox="0 0 16 16"
-                className="mr-2"
               >
                 <path
                   fillRule="evenodd"
@@ -56,9 +55,8 @@ export default () => {
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-arrow-right-short"
+                className="bi bi-arrow-right-short mr-2"
                 viewBox="0 0 16 16"
-                className="mr-2"
               >
                 <path
                   fillRule="evenodd"
@@ -74,9 +72,8 @@ export default () => {
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-arrow-right-short"
+                className="bi bi-arrow-right-short mr-2"
                 viewBox="0 0 16 16"
-                className="mr-2"
               >
                 <path
                   fillRule="evenodd"
@@ -92,9 +89,8 @@ export default () => {
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-arrow-right-short"
+                className="bi bi-arrow-right-short mr-2"
                 viewBox="0 0 16 16"
-                className="mr-2"
               >
                 <path
                   fillRule="evenodd"

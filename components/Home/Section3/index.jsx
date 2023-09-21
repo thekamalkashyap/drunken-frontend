@@ -25,7 +25,7 @@ export default () => {
       </h2>
       <div className="flex items-center mt-10 gap-12 justify-evenly">
         {allTrips.map((item) => {
-          return <Card key={item._id} trip={item} />;
+          return <Card key={item._id} trip={item} id={item._id} />;
         })}
       </div>
     </div>
