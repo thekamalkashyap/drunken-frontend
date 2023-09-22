@@ -18,14 +18,14 @@ export default () => {
   }, []);
 
   return (
-    <div className=" px-16">
+    <div className="px-20 my-12">
       <h2 className="text-3xl flex rounded-xl font-semibold">
         <span className="from-[#10B5CB] mt-1 to-[#0073A8] bg-gradient-to-b rounded-l-full absolute h-8 w-2 " />
         <span className="ml-4">Similar Trips</span>
       </h2>
-      <div className="flex mt-10 gap-8 justify-center">
+      <div className="flex items-center mt-10 gap-12 justify-evenly">
         {allTrips.map((item) => {
-          return <Card key={item._id} trip={item} />;
+          return <Card key={item._id} trip={item} id={item._id} />;
         })}
       </div>
     </div>

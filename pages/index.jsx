@@ -1,12 +1,11 @@
-import { Hero, Section2, Section3 } from "@/components";
-const index = () => {
+import { Hero, Upcoming, International, Testimonial } from "@/components/Page";
+export default () => {
   return (
-    <main className="">
+    <div>
       <Hero />
-      <Section2 />
-      <Section3 />
-    </main>
+      <Upcoming />
+      <International />
+      <Testimonial/>
+    </div>
   );
 };
-
-export default index;
