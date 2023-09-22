@@ -12,7 +12,7 @@ export default () => {
         <img src="/logo.png" alt="Drunken Roads" />
       </figure>
       <nav className="flex-[2]">
-        <ul className="flex justify-center gap-8">
+        <ul className="flex font-medium justify-center gap-8">
           <li className="flex justify-center gap-2">
             <img src="/call.png" alt="" />
             <span>+91-836-067-5025</span>

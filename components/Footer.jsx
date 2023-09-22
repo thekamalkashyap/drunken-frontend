@@ -16,7 +16,7 @@ export default () => {
       </div>
       <div className="bg-white flex p-5 text-black h-[15rem] w-[60vw] rounded-t-2xl">
         <div className="flex-[3] p-4">
-          <h4>About Drunken Roads</h4>
+          <h4 className=" text-lg mb-2 font-semibold">About Drunken Roads</h4>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -28,12 +28,12 @@ export default () => {
           </p>
         </div>
         <div className="flex-1 p-4">
-          <h4>QUICK LINKS</h4>
+          <h4 className=" text-lg mb-2 font-semibold">QUICK LINKS</h4>
           <ul>
-            <li>Privacy Policy</li>
-            <li>Cancellation Policy</li>
-            <li>Terms & Conditions</li>
-            <li>Disclaimer</li>
+            <li><span className="font-bold text-gray-600">&gt;</span> Privacy Policy</li>
+            <li><span className="font-bold text-gray-600">&gt;</span> Cancellation Policy</li>
+            <li><span className="font-bold text-gray-600">&gt;</span> Terms & Conditions</li>
+            <li><span className="font-bold text-gray-600">&gt;</span> Disclaimer</li>
           </ul>
         </div>
       </div>

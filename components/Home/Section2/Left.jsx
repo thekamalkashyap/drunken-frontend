@@ -1,5 +1,21 @@
 export default () => {
-
+  const reviews = [
+    {
+      logo: "google",
+      stars: "⭐ 4.9",
+      reviews: "(xxxx reviews)",
+    },
+    {
+      logo: "tripadvisor",
+      stars: "⭐ 4.9",
+      reviews: "(xxxx reviews)",
+    },
+    {
+      logo: "facebook",
+      stars: "⭐ 4.9",
+      reviews: "(xxxx reviews)",
+    },
+  ];
   return (
     <div className="flex-[4] mr-6">
       <div className=" ml-3 flex gap-6">
@@ -25,34 +41,22 @@ export default () => {
           <p className=" font-semibold">Srinagar</p>
         </div>
       </div>
-      <div className="mt-8 bg-gray-400 font-semibold rounded-3xl p-6 h-[35rem]">
+      <div className="mt-12 bg-gray-400 font-semibold rounded-3xl p-6 h-[40rem]">
         Description <br /> Inclusion <br /> Exclusion <br /> Dates+Book
       </div>
-      <div className="mt-8 bg-gray-400 font-semibold rounded-3xl p-6 h-[15rem]">
+      <div className="mt-12 bg-gray-400 font-semibold rounded-3xl p-6 h-[20rem]">
         Photos/ Videos
       </div>
       <div className="flex mt-16 justify-evenly items-center">
-        <div className="flex items-center flex-col">
-          <figure>
-            <img className="h-10" src={`/Home/google.png`} alt="" />
-          </figure>
-          <h3>⭐ 4.9</h3>
-          <p>(xxxx reviews)</p>
-        </div>
-        <div className="flex items-center flex-col">
-          <figure>
-            <img className="h-10" src={`/Home/tripadvisor.png`} alt="" />
-          </figure>
-          <h3>⭐ 4.9</h3>
-          <p>(xxxx reviews)</p>
-        </div>
-        <div className="flex items-center flex-col">
-          <figure>
-            <img className="h-10" src={`/Home/facebook.png`} alt="" />
-          </figure>
-          <h3>⭐ 4.9</h3>
-          <p>(xxxx reviews)</p>
-        </div>
+        {reviews.map((review, index) => (
+          <div key={index} className="flex gap-3 items-center flex-col">
+            <figure>
+              <img className="h-14" src={`/Home/${review.logo}.png`} alt="" />
+            </figure>
+            <h3 className="text-lg font-semibold">{review.stars}</h3>
+            <p>{review.reviews}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

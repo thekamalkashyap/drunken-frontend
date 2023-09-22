@@ -13,19 +13,19 @@ export default function Card ({trip}){
             <figure>
               <img src="/Home/locationw.png" alt="clock" />
             </figure>
-            <span>{trip.title}</span>
+            <span>{trip?.title}</span>
           </div>
         </div>
-        <h2>{trip.description}</h2>
+        <h2>{trip?.description}</h2>
         <div className="flex">
           <span>Starts at</span>
-          <span>₹{trip.price}/-</span>
+          <span>₹{trip?.price}/-</span>
         </div>
         <div className="flex gap-2">
           <figure>
             <img src="/Home/calendarw.png" alt="" />
           </figure>
-          <span>{trip.startsAt} Jun</span>
+          <span>{trip?.startsAt} Jun</span>
         </div>
       </div>
     </div>
