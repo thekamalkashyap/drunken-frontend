@@ -1,11 +1,12 @@
-import { Hero, Section2, Section3 } from "@/components";
+import { Hero, Description, SimilarTrips } from "@/components/Trip";
+
 const page = () => {
   return (
-    <main className="">
+    <>
       <Hero />
-      <Section2 />
-      <Section3 />
-    </main>
+      <Description />
+      <SimilarTrips />
+    </>
   );
 };
 

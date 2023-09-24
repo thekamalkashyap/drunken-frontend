@@ -1,11 +1,17 @@
-import { Hero, Upcoming, International, Testimonial } from "@/components/Page";
+import {
+  Hero,
+  UpcomingTrips,
+  InternationalTrips,
+  Testimonials,
+} from "@/components/Home";
+
 export default () => {
   return (
-    <div>
+    <>
       <Hero />
-      <Upcoming />
-      <International />
-      <Testimonial/>
-    </div>
+      <UpcomingTrips />
+      <InternationalTrips />
+      <Testimonials />
+    </>
   );
 };

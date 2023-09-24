@@ -1,12 +1,8 @@
-import { Montserrat } from "next/font/google";
-
-const montserrat = Montserrat({ subsets: ["latin"] });
-
 export default () => {
   return (
     <header
       className={`uppercase py-2 px-16 flex items-center justify-evenly
-       gap-4 text-black ${montserrat.className}`}
+       gap-4 text-black`}
     >
       <figure className="flex-1 flex">
         <img src="/logo.png" alt="Drunken Roads" />
