@@ -1,5 +1,12 @@
-<<<<<<< HEAD
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+
 export default () => {
+  const router = useRouter();
+  const searchParams = router.query;
+  console.log(searchParams);
+  const [currentTrip, setCurrentTrip] = useState();
+
   const reviews = [
     {
       logo: "google",
@@ -17,19 +24,12 @@ export default () => {
       reviews: "(xxxx reviews)",
     },
   ];
-=======
-import { useEffect, useState } from "react";
-import { useRouter } from 'next/router';
 
-
-export default () => {
-  const router = useRouter();
-  const searchParams = router.query;
-  console.log(searchParams)
-  const [currentTrip, setCurrentTrip] = useState();
   // Fetching trips from backend
   const fetchTrip = async () => {
-    const response = await fetch(`http://localhost:5000/api/trips/getTrip/${searchParams.id}`);
+    const response = await fetch(
+      `http://localhost:5000/api/trips/getTrip/${searchParams.id}`
+    );
     const data = await response.json();
     console.log(data);
     setCurrentTrip(data);
@@ -40,8 +40,7 @@ export default () => {
       fetchTrip();
     }
   }, []);
-  
->>>>>>> 689a037e287518619374fa79e6d78507a2fffa55
+
   return (
     <div className="flex-[4] mr-6">
       <div className=" ml-3 flex gap-6">
@@ -67,17 +66,10 @@ export default () => {
           <p className=" font-semibold">Srinagar</p>
         </div>
       </div>
-<<<<<<< HEAD
       <div className="mt-12 bg-gray-400 font-semibold rounded-3xl p-6 h-[40rem]">
         Description <br /> Inclusion <br /> Exclusion <br /> Dates+Book
       </div>
       <div className="mt-12 bg-gray-400 font-semibold rounded-3xl p-6 h-[20rem]">
-=======
-      <div className="mt-10 bg-gray-400 font-semibold rounded-3xl p-6 h-[35rem]">
-        Description <br /> Inclusion <br /> Exclusion <br /> Dates+Book
-      </div>
-      <div className="mt-8 bg-gray-400 font-semibold rounded-3xl p-6 h-[18rem]">
->>>>>>> 689a037e287518619374fa79e6d78507a2fffa55
         Photos/ Videos
       </div>
       <div className="flex mt-16 justify-evenly items-center">

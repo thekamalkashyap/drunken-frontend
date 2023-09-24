@@ -3,7 +3,7 @@ export default () => {
     <div className=" px-16">
       <h2 className="text-3xl mt-12 flex rounded-xl font-semibold">
         <span className="from-[#10B5CB] mt-1 to-[#0073A8] bg-gradient-to-b rounded-l-full absolute h-8 w-2 " />
-        <span className="ml-4">International Trips</span>
+        <span className="ml-4">Hear from travelers like you</span>
       </h2>
       <div className="my-10 px-16 gap-8 flex-wrap flex justify-evenly items-center">
         <Card />

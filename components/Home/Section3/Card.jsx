@@ -18,25 +18,6 @@ export default function Card({ trip, id }) {
               <span>{trip.title}</span>
             </div>
           </div>
-<<<<<<< HEAD
-          <div className="flex items-center gap-2">
-            <figure>
-              <img src="/Home/locationw.png" alt="clock" />
-            </figure>
-            <span>{trip?.title}</span>
-          </div>
-        </div>
-        <h2>{trip?.description}</h2>
-        <div className="flex">
-          <span>Starts at</span>
-          <span>₹{trip?.price}/-</span>
-        </div>
-        <div className="flex gap-2">
-          <figure>
-            <img src="/Home/calendarw.png" alt="" />
-          </figure>
-          <span>{trip?.startsAt} Jun</span>
-=======
           <h2>{trip.description}</h2>
           <div className="flex">
             <span className="mr-2">Starts at</span>
@@ -50,7 +31,6 @@ export default function Card({ trip, id }) {
               {trip.startsAt} - {trip.endAt}
             </span>
           </div>
->>>>>>> 689a037e287518619374fa79e6d78507a2fffa55
         </div>
       </div>
     </Link>
