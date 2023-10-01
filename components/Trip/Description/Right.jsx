@@ -15,11 +15,11 @@ export default () => {
   ];
 
   return (
-    <div className="ml-6 my-10 flex flex-col gap-8 flex-[2]">
-      <h2 className="font-semibold text-2xl ">
+    <div className="md:ml-6 my-10 flex flex-col gap-8 flex-[2]">
+      <h2 className="font-semibold text-2xl text-center md:text-left ">
         Travelers eager to share their memorable experiences 🥰
       </h2>
-      <div className="h-[15rem] mt-6 font-semibold flex justify-center items-center rounded-3xl bg-gray-400">
+      <div className="h-[15rem] md:mt-6 font-semibold flex justify-center items-center rounded-3xl bg-gray-400">
         Youtube Video
       </div>
       <h2 className="font-semibold text-2xl ">Get in touch</h2>
@@ -52,7 +52,7 @@ export default () => {
       {whyDrunken.map((why, index) => (
         <div
           key={index}
-          className={`text-white h-[11rem] rounded-3xl p-6 ${why.bg} bg-gradient-to-r`}
+          className={`text-white md:h-[11rem] rounded-3xl p-6 ${why.bg} bg-gradient-to-r`}
         >
           <div className="relative mb-3 flex justify-center items-center border-dashed rounded-full h-14 w-14 border-2">
             <span className=" h-10 w-10 absolute flex justify-center items-center text-white rounded-full border-2 border-white">

@@ -19,7 +19,7 @@ export default () => {
   }, []);
 
   return (
-    <div className="px-20 my-12">
+    <div className=" px-8 md:px-20 my-6 md:my-12">
       <Heading>Similar Trips</Heading>
       <div className="flex items-center mt-10 gap-12 justify-evenly">
         {allTrips.map((item) => {
