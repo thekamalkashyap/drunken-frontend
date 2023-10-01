@@ -1,7 +1,13 @@
-export default function Card({ trip }) {
+import cn from "@/utils/cn";
+export default function Card({ trip, className }) {
   return (
-    <div className="flex text-white">
-      <div className=" flex flex-col justify-end p-8 w-[450px] h-[400px] rounded-2xl bg-no-repeat bg-cover bg-[linear-gradient(to_bottom,rgba(00,00,00,0),rgba(0,0,0,0.8)),url('/Home/kashmir.png')] ">
+    <div>
+      <div
+        className={cn(
+          " flex text-white flex-col justify-end p-8 w-[300px] md:w-[450px] h-[300px] md:h-[400px] rounded-2xl bg-no-repeat bg-cover bg-[linear-gradient(to_bottom,rgba(00,00,00,0),rgba(0,0,0,0.8)),url('/Home/kashmir.png')] ",
+          className
+        )}
+      >
         <div className="flex gap-8">
           <div className="flex items-center gap-2">
             <figure>
