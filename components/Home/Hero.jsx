@@ -9,11 +9,11 @@ export default () => {
           Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
         </p>
         <form
-          className="bg-white w-full sm:w-2/3 xl:w-full items-center justify-center px-4 flex rounded-full"
+          className="bg-white  w-full sm:w-2/3 xl:w-full items-center justify-center px-4 flex rounded-full"
           action=""
         >
           <input
-            className="rounded-full focus:outline-none text-black w-full py-2"
+            className="rounded-full focus:outline-none text-black bg-white w-full py-2"
             type="text"
             placeholder="Search Destination"
           />

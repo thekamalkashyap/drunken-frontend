@@ -26,8 +26,9 @@ export default () => {
       </nav>
       <nav className="hidden lg:block flex-[3]">
         <ul className="flex justify-end gap-8">
-          <li>Upcoming Trips</li>
-          <li>Internatinal Trips</li>
+
+          <li><a href="#upcomingTrips">Upcoming Trips</a></li>
+          <li><a href="#internationalTrips">Internatinal Trips</a></li>
           <li><Link href="/contact_us">Contact Us</Link></li>
           <li><Link href={"/admin_portal"}>Admin Portal</Link></li>
         </ul>

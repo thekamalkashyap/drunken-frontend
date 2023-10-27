@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import Card from "./Card";
+import { useRouter } from "next/router";
+import {UploadTrips} from '@/components';
 
 export default function index() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
+  const router = useRouter();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -21,6 +24,9 @@ export default function index() {
   useEffect(() => {
     if (allTrips.length === 0) {
       fetchTrips();
+    }
+    if(!localStorage.getItem("authToken")){
+      router.push('/invalid_access');
     }
   }, []);
   return (
@@ -103,11 +109,11 @@ export default function index() {
                   3
                 </span>
             </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 cursor-pointer rounded-lg hover:bg-gray-100 hover:text-white dark:hover:bg-gray-700 group"
-              >
+            <li className={`flex items-center p-2 text-gray-900 cursor-pointer rounded-lg hover:bg-gray-100  hover:text-white dark:hover:bg-gray-600 group `}
+            onClick={()=>{
+              localStorage.clear();
+              router.push('/admin_portal')
+            }}>
                 <svg
                   className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                   aria-hidden="true"
@@ -124,7 +130,7 @@ export default function index() {
                   />
                 </svg>
                 <span className="flex-1 ml-3 whitespace-nowrap">Sign out</span>
-              </a>
+              
             </li>
           </ul>
         </div>
@@ -142,14 +148,14 @@ export default function index() {
             ))}
         </div>
       </div>
-      <div id="Dashboard" className={`${activeTab === 1 ? "block" : "hidden"} h-auto w-full flex items-center gap-8 flex-col justify-center text-6xl font-semibold`}>
+      <div id="Dashboard" className={`${activeTab === 3 ? "block" : "hidden"} h-auto w-full flex items-center gap-8 flex-col justify-center text-6xl font-semibold`}>
         Admin Dashboard
         <div className="rounded-lg bg-blue-600 text-xl px-4 py-2 cursor-pointer" onClick={()=>{setActiveTab(2)}}>
             Explore <span className="ml-2">&rarr;</span>
         </div>
       </div>
-      <div id="uploadTrips" className={`${activeTab === 3 ? "block" : "hidden"}`}>
-        Div 3
+      <div id="uploadTrips" className={`${activeTab === 1 ? "block" : "hidden"} h-full w-full p-8`}>
+        <UploadTrips/>
       </div>
     </div>
   );

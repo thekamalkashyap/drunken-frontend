@@ -9,7 +9,7 @@ export default ({internationalTrips}) => {
   
   
   return (
-    <div className=" px-8 md:px-16">
+    <div className=" px-8 md:px-16" id="internationalTrips">
       <Heading>International Trips</Heading>
       <div className="flex flex-wrap gap-4 my-12">
       {internationalTrips && internationalTrips.map((item) => {

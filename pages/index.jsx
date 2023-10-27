@@ -41,11 +41,11 @@ export default () => {
   }, [upcomingTrips]);
 
   return (
-    <>
+    <div >
       <Hero />
       <UpcomingTrips upcomingTrips={upcomingTrips} />
       <InternationalTrips internationalTrips={internationalTrips} />
       <Testimonials />
-    </>
+    </div>
   );
 };
