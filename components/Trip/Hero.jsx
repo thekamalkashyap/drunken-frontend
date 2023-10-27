@@ -1,19 +1,46 @@
 export default () => {
   return (
-    <div className="bg-[url(/Home/herobg.png)] flex gap-3 md:gap-8 flex-col px-8 md:px-16 justify-center text-white bg-[#2F6A7F] bg-blend-overlay bg-cover bg-no-repeat h-[calc(90vh-90px)]">
-      <h1 className="font-bold text-3xl md:text-5xl">
-        Experience the Best of Kashmir: <br /> 8 Days Tour Package
-      </h1>
-      <p className="font-medium text-xl md:text-2xl">
-        Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
-      </p>
-      <div className="flex flex-col md:mt-12 justify-end gap-4 md:gap-8">
-        <button className="bg-white py-2 px-8 rounded-full  text-[#0073A8]">
-          Get Itinerary
-        </button>
-        <button className=" from-[#10B5CB] bg-[#0073A8] bg-gradient-to-r py-2 px-10 text-white rounded-full">
-          Book Now
-        </button>
+    <div className="flex text-black">
+      <div className="flex-1 p-16 flex flex-col justify-center gap-6 ">
+        <div className="flex gap-6 items-center">
+          <div className="flex gap-3 justify-center items-center">
+            <img className="h-6 w-6" src={`/Home/clock.png`} alt="" />
+            <h3 className="text-xl text-black font-bold sm:text-base text-center">
+              7N-6D
+            </h3>
+          </div>
+          <div className="flex gap-3 items-center">
+            <img className="h-6 w-5" src="/Home/location.png" alt="" />
+            <h3 className="text-sm text-black font-semibold sm:text-base text-center">
+              Goa
+            </h3>
+          </div>
+        </div>
+        <h3 className="text-2xl font-bold text-black ">
+          Trip To Goa: 8 Days Tour Package
+        </h3>
+        <div>
+          <span>Starts at</span>
+          <span className=" font-semibold">₹58,999</span>
+        </div>
+        <div className="flex gap-3 items-center">
+          <img className="h-6 w-5" src="/Home/calendar.png" alt="" />
+          <h3 className="text-sm text-black font-semibold sm:text-base text-center">
+            18 Jun
+          </h3>
+        </div>
+        <div className="flex flex-col gap-6">
+          <button className=" flex text-xl justify-center gap-2 rounded-lg py-4 w-full bg-[#489CB0]">
+            <span>Book Now</span>
+            <img className=" h-6 w-6 " src="/Home/calendarw.png" alt="" />
+          </button>
+          <button className=" flex text-xl w-full justify-center gap-2 py-4 rounded-lg border-2 border-[#489CB0]">
+            Download full itenary
+          </button>
+        </div>
+      </div>
+      <div className="flex-1 p-16 flex justify-center items-center">
+        <img className="h-[calc(85vh-4rem)] " src="/test.png" alt="test" />
       </div>
     </div>
   );
