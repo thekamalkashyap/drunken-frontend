@@ -1,4 +1,4 @@
-export default () => {
+export default ({currentTrip}) => {
   return (
     <div className="flex text-black">
       <div className="flex-1 p-16 flex flex-col justify-center gap-6 ">
@@ -6,27 +6,27 @@ export default () => {
           <div className="flex gap-3 justify-center items-center">
             <img className="h-6 w-6" src={`/Home/clock.png`} alt="" />
             <h3 className="text-xl text-black font-bold sm:text-base text-center">
-              7N-6D
+              {currentTrip?.duration}
             </h3>
           </div>
           <div className="flex gap-3 items-center">
             <img className="h-6 w-5" src="/Home/location.png" alt="" />
             <h3 className="text-sm text-black font-semibold sm:text-base text-center">
-              Goa
+              {currentTrip?.destination}
             </h3>
           </div>
         </div>
         <h3 className="text-2xl font-bold text-black ">
-          Trip To Goa: 8 Days Tour Package
+          {currentTrip?.title}
         </h3>
         <div>
-          <span>Starts at</span>
-          <span className=" font-semibold">₹58,999</span>
+          <span >Starts at</span>
+          <span className=" font-semibold ml-2">₹{currentTrip?.price}</span>
         </div>
         <div className="flex gap-3 items-center">
           <img className="h-6 w-5" src="/Home/calendar.png" alt="" />
           <h3 className="text-sm text-black font-semibold sm:text-base text-center">
-            18 Jun
+            {currentTrip?.startsAt}
           </h3>
         </div>
         <div className="flex flex-col gap-6">
@@ -39,7 +39,7 @@ export default () => {
           </button>
         </div>
       </div>
-      <div className="flex-1 p-16 flex justify-center items-center">
+      <div className="flex-1 p-8 flex justify-center items-center">
         <img className="h-[calc(85vh-4rem)] " src="/test.png" alt="test" />
       </div>
     </div>

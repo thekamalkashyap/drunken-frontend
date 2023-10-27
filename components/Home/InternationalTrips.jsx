@@ -3,10 +3,6 @@ import Heading from "../Heading";
 import {useEffect} from "react";
 
 export default ({internationalTrips}) => {
-  useEffect(() => {
-    console.log(internationalTrips)
-  }, [internationalTrips])
-  
   
   return (
     <div className=" px-8 md:px-16" id="internationalTrips">

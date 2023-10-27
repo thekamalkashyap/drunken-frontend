@@ -9,30 +9,29 @@ export default function Card({ trip, className, id }) {
           className
         )}
       >
-        <div className="flex gap-8">
+        <div className="flex gap-4 flex-col">
           <div className="flex items-center gap-2">
             <figure>
               <img src="/Home/clockw.png" alt="clock" />
             </figure>
             <span>7N-8D</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 mb-1">
             <figure>
               <img src="/Home/locationw.png" alt="clock" />
             </figure>
             <span>{trip?.title}</span>
           </div>
         </div>
-        <h2>{trip?.description}</h2>
-        <div className="flex">
-          <span>Starts at</span>
+        <div className="flex mb-1">
+          <span className="mr-2">Starts at</span>
           <span>₹{trip?.price}/-</span>
         </div>
         <div className="flex gap-2">
           <figure>
             <img src="/Home/calendarw.png" alt="" />
           </figure>
-          <span>{trip?.startsAt} Jun</span>
+          <span >{trip?.startsAt}</span>
         </div>
       </div>
     </Link>
