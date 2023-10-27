@@ -1,20 +1,76 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 
 export default function UploadTrips() {
+  // State to manage form values
+  const [formValues, setFormValues] = useState({
+    title: "",
+    aboutTour: "",
+    inclusion: "",
+    exclusion: "",
+    price: "",
+    duration: "",
+    startsAt: "",
+    category: "",
+  });
+
+  // Function to handle form input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      // Make a request to the server for authentication
+      const response = await fetch(
+        "http://localhost:5000/api/trips/uploadTrip",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title,
+            aboutTour,
+            inclusion,
+            exclusion,
+            price,
+            duration,
+            startsAt,
+            category
+          }),
+        }
+      );
+
+      const data = await response.json();
+      if (data.success) {
+        localStorage.setItem("authToken", data.authToken);
+        router.push("/admin_portal/dashboard");
+      } else {
+        setLoginFailed(true);
+      }
+    } catch (error) {
+      console.error("Error during authentication", error);
+    }
+  };
+
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="relative z-0 w-full mb-6 group">
           <input
-            type="title"
-            name="floating_email"
-            id="floating_email"
+            type="text"
+            name="title"
+            id="title"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            required=""
+            value={formValues.title}
+            onChange={handleInputChange}
+            required
           />
           <label
-            htmlFor="floating_email"
+            htmlFor="title"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
             Title
@@ -23,14 +79,16 @@ export default function UploadTrips() {
         <div className="relative z-0 w-full mb-6 group">
           <input
             type="text"
-            name="floating_password"
-            id="floating_password"
+            name="aboutTour"
+            id="aboutTour"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            required=""
+            value={formValues.aboutTour}
+            onChange={handleInputChange}
+            required
           />
           <label
-            htmlFor="floating_password"
+            htmlFor="aboutTour"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
             About Tour
@@ -39,14 +97,16 @@ export default function UploadTrips() {
         <div className="relative z-0 w-full mb-6 group">
           <input
             type="text"
-            name="repeat_password"
-            id="floating_repeat_password"
+            name="inclusion"
+            id="inclusion"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            required=""
+            value={formValues.inclusion}
+            onChange={handleInputChange}
+            required
           />
           <label
-            htmlFor="floating_repeat_password"
+            htmlFor="inclusion"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
             Inclusion
@@ -55,14 +115,16 @@ export default function UploadTrips() {
         <div className="relative z-0 w-full mb-6 group">
           <input
             type="text"
-            name="repeat_password"
-            id="floating_repeat_password"
+            name="exclusion"
+            id="exclusion"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            required=""
+            value={formValues.exclusion}
+            onChange={handleInputChange}
+            required
           />
           <label
-            htmlFor="floating_repeat_password"
+            htmlFor="exclusion"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
             Exclusion
@@ -72,14 +134,16 @@ export default function UploadTrips() {
           <div className="relative z-0 w-full mb-6 group">
             <input
               type="text"
-              name="floating_first_name"
-              id="floating_first_name"
+              name="price"
+              id="price"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required=""
+              value={formValues.price}
+              onChange={handleInputChange}
+              required
             />
             <label
-              htmlFor="floating_first_name"
+              htmlFor="price"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Price
@@ -87,18 +151,17 @@ export default function UploadTrips() {
           </div>
           <div className="relative z-0 w-full mb-6 group">
             <input
-              type="text"
-              name="floating_last_name"
-              id="floating_last_name"
+              type="file"
+              name="images"
+              id="images"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required=""
             />
             <label
-              htmlFor="floating_last_name"
+              htmlFor="images"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Cateogry
+              Upload Images
             </label>
           </div>
         </div>
@@ -106,14 +169,16 @@ export default function UploadTrips() {
           <div className="relative z-0 w-full mb-6 group">
             <input
               type="text"
-              name="floating_phone"
-              id="floating_phone"
+              name="duration"
+              id="duration"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required=""
+              value={formValues.duration}
+              onChange={handleInputChange}
+              required
             />
             <label
-              htmlFor="floating_phone"
+              htmlFor="duration"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Duration
@@ -122,61 +187,62 @@ export default function UploadTrips() {
           <div className="relative z-0 w-full mb-6 group">
             <input
               type="text"
-              name="floating_company"
-              id="floating_company"
+              name="startsAt"
+              id="startsAt"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required=""
+              value={formValues.startsAt}
+              onChange={handleInputChange}
+              required
             />
             <label
-              htmlFor="floating_company"
+              htmlFor="startsAt"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Starts At
             </label>
           </div>
         </div>
-        <div className="grid md:grid-cols-2 md:gap-6">
-          <div className="relative z-0 w-full mb-6 group">
-            <input
-              type="file"
-              name="floating_company"
-              id="floating_company"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required=""
-            />
-            <label
-              htmlFor="floating_company"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+        <div className="grid md:grid-cols-2 md:gap-6 mb-4">
+          <div className="relative z-0 w-full mb-6 group bg-white top-4">
+            <label htmlFor="category">Category :</label>
+            <select
+              id="category"
+              name="category"
+              className="bg-white ml-4 "
+              value={formValues.category}
+              onChange={handleInputChange}
+              required
             >
-              Upload Images
-            </label>
+              <option value="" disabled>
+                Select category
+              </option>
+              <option value="upcomingTrips">Upcoming Trips</option>
+              <option value="internationalTrips">International Trips</option>
+            </select>
           </div>
         </div>
         <div className="collapse collapse-plus text-black border-2 mb-4">
           <input type="radio" name="my-accordion-3" defaultChecked="checked" />
           <div className="collapse-title text-xl font-medium">Day 1</div>
           <div className="collapse-content">
-          <div className="relative z-0 w-full mb-6 group">
-          <input
-            type="title"
-            name="floating_email"
-            id="floating_email"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-            required=""
-          />
-          <label
-            htmlFor="floating_email"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-            Info
-          </label>
-        </div>
+            <div className="relative z-0 w-full mb-6 group">
+              <input
+                type="title"
+                name="TripInfo1"
+                id="TripInfo1"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+              />
+              <label
+                htmlFor="TripInfo1"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Info
+              </label>
+            </div>
           </div>
         </div>
-
         <button
           type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
