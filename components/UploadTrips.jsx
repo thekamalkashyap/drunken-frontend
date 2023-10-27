@@ -57,7 +57,7 @@ export default function UploadTrips() {
 
   const [accordion, setAccordion] = useState([0]);
   return (
-    <div>
+    <div >
       <form onSubmit={handleSubmit}>
         <div className="relative z-0 w-full mb-6 group">
           <input
@@ -78,7 +78,7 @@ export default function UploadTrips() {
           </label>
         </div>
         <div className="relative z-0 w-full mb-6 group">
-          <input
+          <textarea
             type="text"
             name="aboutTour"
             id="aboutTour"
@@ -96,7 +96,7 @@ export default function UploadTrips() {
           </label>
         </div>
         <div className="relative z-0 w-full mb-6 group">
-          <input
+          <textarea
             type="text"
             name="inclusion"
             id="inclusion"
@@ -114,7 +114,7 @@ export default function UploadTrips() {
           </label>
         </div>
         <div className="relative z-0 w-full mb-6 group">
-          <input
+          <textarea
             type="text"
             name="exclusion"
             id="exclusion"

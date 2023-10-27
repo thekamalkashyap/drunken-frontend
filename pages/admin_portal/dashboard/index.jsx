@@ -123,9 +123,9 @@ export default function index() {
               <span className="flex-1 ml-3 whitespace-nowrap">
                 Upload Trips
               </span>
-              <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+              {/* <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
                 3
-              </span>
+              </span> */}
             </li>
             <li
               className={`flex items-center p-2 text-gray-900 cursor-pointer rounded-lg hover:bg-gray-100  hover:text-white dark:hover:bg-gray-600 group `}
@@ -160,7 +160,7 @@ export default function index() {
           activeTab === 2 ? "block" : "hidden"
         }`}
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 my-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 my-10 mx-2">
           {allTrips &&
             allTrips.map((item) => (
               <Card key={item._id} trip={item} id={item._id} />
@@ -170,7 +170,7 @@ export default function index() {
       <div
         id="Dashboard"
         className={`${
-          activeTab === 3 ? "block" : "hidden"
+          activeTab ===  1? "block" : "hidden"
         } h-auto w-full flex items-center gap-8 flex-col justify-center text-6xl font-semibold`}
       >
         Admin Dashboard
@@ -185,7 +185,7 @@ export default function index() {
       </div>
       <div
         id="uploadTrips"
-        className={`${activeTab === 1 ? "block" : "hidden"} h-full w-full p-8`}
+        className={`${activeTab === 3 ? "block" : "hidden"} h-full w-full p-8`}
       >
         <UploadTrips />
       </div>

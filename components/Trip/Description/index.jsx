@@ -27,14 +27,14 @@ export default ({ currentTrip }) => {
       </div>
       <div>
         <div className="collapse-title text-xl font-medium">
-          <Heading className=" mt-0">Inclusions</Heading>
-          <p className="whitespace-pre-wrap">
+          <Heading className=" my-2">Inclusions</Heading>
+          <p className="whitespace-pre-wrap mt-4">
             {currentTrip?.inclusions}
           </p>
         </div>
         <div className="collapse-title text-xl font-medium">
-          <Heading className=" mt-0">Exclusions</Heading>
-          <p className="whitespace-pre-wrap">
+          <Heading className=" my-2">Exclusions</Heading>
+          <p className="whitespace-pre-wrap mt-4">
             {currentTrip?.exclusions}
           </p>
         </div>

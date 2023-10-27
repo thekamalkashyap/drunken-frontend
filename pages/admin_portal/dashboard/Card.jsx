@@ -5,7 +5,7 @@ export default function Card({ trip, className, id }) {
     <Link href={`/trip/${id}`} className="cursor-pointer">
       <div
         className={cn(
-          " flex text-white flex-col justify-end p-8 w-[300px] md:w-[450px] h-[300px] md:h-[400px] rounded-2xl bg-no-repeat bg-cover bg-[linear-gradient(to_bottom,rgba(00,00,00,0),rgba(0,0,0,0.8)),url('/Home/kashmir.png')] ",
+          " flex text-white flex-col justify-end p-8 w-[300px] md:w-[400px] h-[300px] md:h-[400px] rounded-2xl bg-no-repeat bg-cover bg-[linear-gradient(to_bottom,rgba(00,00,00,0),rgba(0,0,0,0.8)),url('/Home/kashmir.png')] ",
           className
         )}
       >
@@ -14,7 +14,7 @@ export default function Card({ trip, className, id }) {
             <figure>
               <img src="/Home/clockw.png" alt="clock" />
             </figure>
-            <span>7N-8D</span>
+            <span>{trip?.duration}</span>
           </div>
           <div className="flex items-center gap-2 mb-1">
             <figure>
