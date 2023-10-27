@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useParams } from 'next/navigation'
 
 export default () => {
-  const router = useRouter();
-  const searchParams = router.query;
-  console.log(searchParams);
-  const [currentTrip, setCurrentTrip] = useState();
-
   const reviews = [
     {
       logo: "google",
@@ -25,20 +20,21 @@ export default () => {
     },
   ];
 
+  const params = useParams();
+  const [currentTrip, setCurrentTrip] = useState({});
+
   // Fetching trips from backend
   const fetchTrip = async () => {
     const response = await fetch(
-      `http://localhost:5000/api/trips/getTrip/${searchParams.id}`
+      `http://localhost:5000/api/trips/getTrip/653ab602f89c59aabd01da79`
     );
     const data = await response.json();
-    console.log(data);
     setCurrentTrip(data);
   };
 
   useEffect(() => {
-    if (!currentTrip) {
       fetchTrip();
-    }
+      console.log(params)
   }, []);
 
   return (
@@ -49,25 +45,25 @@ export default () => {
             <img className="h-6 w-6" src={`/Home/clock.png`} alt="" />
           </figure>
           <h3 className="text-sm sm:text-base text-center">Duration</h3>
-          <p className="text-sm sm:text-base font-semibold">7N-8D</p>
+          <p className="text-sm sm:text-base font-semibold">{currentTrip.price}</p>
         </div>
         <div className="flex items-center flex-col">
-          <figure className="bg-white shadow-lg -mt-6 flex justify-center items-center h-10 w-10 rounded-full">
+          <figure className="bg-white shadow-lg -mt-6 flex  justify-center items-center h-10 w-10 rounded-full">
             <img className="h-6 w-4" src="/Home/rupee.png" alt="" />
           </figure>
           <h3 className="text-sm sm:text-base text-center">Starting Prize</h3>
-          <p className="text-sm sm:text-base font-semibold">₹89,999/-</p>
+          <p className="text-sm sm:text-base font-semibold">{currentTrip.price}</p>
         </div>
         <div className="flex items-center flex-col">
           <figure className="bg-white shadow-lg -mt-6 flex justify-center items-center h-10 w-10 rounded-full">
             <img className="h-6 w-5" src="/Home/location.png" alt="" />
           </figure>
           <h3 className="text-sm sm:text-base text-center">Pick up & Drop</h3>
-          <p className="text-sm sm:text-base font-semibold">Srinagar</p>
+          <p className="text-sm sm:text-base font-semibold">{currentTrip.title}</p>
         </div>
       </div>
       <div className=" mt-6 md:mt-12 bg-gray-400 font-semibold rounded-3xl p-6 h-[18rem] md:h-[40rem]">
-        Description <br /> Inclusion <br /> Exclusion <br /> Dates+Book
+        {currentTrip.description} <br /> Inclusion <br /> Exclusion <br /> Dates+Book
       </div>
       <div className="mt-12 bg-gray-400 font-semibold rounded-3xl p-6 h-[9rem] md:h-[20rem]">
         Photos/ Videos

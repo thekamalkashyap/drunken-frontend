@@ -1,7 +1,8 @@
 import cn from "@/utils/cn";
-export default function Card({ trip, className }) {
+import Link from "next/link";
+export default function Card({ trip, className, id }) {
   return (
-    <div>
+    <Link href={`/trip/${id}`} className="cursor-pointer">
       <div
         className={cn(
           " flex text-white flex-col justify-end p-8 w-[300px] md:w-[450px] h-[300px] md:h-[400px] rounded-2xl bg-no-repeat bg-cover bg-[linear-gradient(to_bottom,rgba(00,00,00,0),rgba(0,0,0,0.8)),url('/Home/kashmir.png')] ",
@@ -34,6 +35,6 @@ export default function Card({ trip, className }) {
           <span>{trip?.startsAt} Jun</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

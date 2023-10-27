@@ -1,14 +1,14 @@
 import Card from "./Card";
 import Heading from "../Heading";
 
-export default () => {
+export default ({upcomingTrips}) => {
   return (
     <div className=" px-8 md:px-16">
       <Heading>Upcoming Trips</Heading>
-      <div className="flex flex-wrap gap-4 justify-around ld:justify-between items-center my-12">
-        <Card trip={null} />
-        <Card trip={null} />
-        <Card trip={null} />
+      <div className="flex flex-wrap gap-4 items-center my-12">
+      {upcomingTrips && upcomingTrips.map((item) => {
+          return <Card key={item._id} trip={item} id={item._id} />;
+        })}
       </div>
     </div>
   );

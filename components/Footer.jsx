@@ -1,6 +1,6 @@
 export default () => {
   return (
-    <footer className=" xl:h-[90vh] bg-[url(/Home/herobg.png)] flex gap-8 flex-col items-center  py-6 md:py-12 px-6 md:px-16 justify-center text-white bg-[#2F6A7F] bg-blend-overlay bg-cover bg-no-repeat ">
+    <footer className=" xl:h-[90vh] bg-[url(/Home/herobg.png)] flex gap-8 flex-col items-center py-6 md:py-12 px-6 md:px-16 justify-center text-white bg-[#2F6A7F] bg-blend-overlay bg-cover bg-no-repeat">
       <div className="flex flex-col gap-4 md:gap-6">
         <h2 className="font-bold text-center md:text-left text-4xl md:text-5xl lg:text-6xl">Looking for something else?</h2>
         <div className="flex gap-2 flex-col md:flex-row justify-between items-center">

@@ -1,14 +1,15 @@
 import { useDisclosure } from "@mantine/hooks";
+import Link from "next/link";
 
 export default () => {
   const [opened, handlers] = useDisclosure(false);
   return (
     <header
       className={`uppercase px-10 md:px-16 h-16 flex items-center justify-evenly
-       gap-4 text-black text-xs lg:text-sm xl:text-base`}
+       gap-4 text-black text-xs lg:text-sm xl:text-base border-b-[.5px] border-black`}
     >
       <figure className="flex-[1] flex">
-        <img src="/logo.png" alt="Drunken Roads" />
+        <a href="/"><img src="/logo.png" alt="Drunken Roads" /></a>
       </figure>
       {/* desktop view  */}
       <nav className="hidden lg:block flex-[2]">
@@ -27,8 +28,8 @@ export default () => {
         <ul className="flex justify-end gap-8">
           <li>Upcoming Trips</li>
           <li>Internatinal Trips</li>
-          <li>Blogs</li>
-          <li>About Us</li>
+          <li><Link href="/contact_us">Contact Us</Link></li>
+          <li><Link href={"/admin_portal"}>Admin Portal</Link></li>
         </ul>
       </nav>
       {/* mobile view  */}

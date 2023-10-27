@@ -1,10 +1,12 @@
 import { Hero, Description, SimilarTrips } from "@/components/Trip";
 
 const page = () => {
+  
+
   return (
     <>
       <Hero />
-      <Description />
+      <Description/>
       <SimilarTrips />
     </>
   );

@@ -1,14 +1,20 @@
 import Card from "./Card";
 import Heading from "../Heading";
+import {useEffect} from "react";
 
-export default () => {
+export default ({internationalTrips}) => {
+  useEffect(() => {
+    console.log(internationalTrips)
+  }, [internationalTrips])
+  
+  
   return (
     <div className=" px-8 md:px-16">
       <Heading>International Trips</Heading>
-      <div className="flex flex-wrap gap-4 justify-around lg:justify-between items-center my-12">
-        <Card trip={null} />
-        <Card trip={null} />
-        <Card trip={null} />
+      <div className="flex flex-wrap gap-4 my-12">
+      {internationalTrips && internationalTrips.map((item) => {
+          return <Card key={item._id} trip={item} id={item._id} />;
+        })}
       </div>
     </div>
   );
