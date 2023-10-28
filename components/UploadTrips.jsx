@@ -38,7 +38,7 @@ export default function UploadTrips() {
             price,
             duration,
             startsAt,
-            category
+            category,
           }),
         }
       );
@@ -54,8 +54,8 @@ export default function UploadTrips() {
       console.error("Error during authentication", error);
     }
   };
-
-  const [accordion, setAccordion] = useState([0]);
+  const [input, setInput] = useState("");
+  const [accordion, setAccordion] = useState([]);
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -224,39 +224,46 @@ export default function UploadTrips() {
           </div>
         </div>
         {accordion.map((ele, ind) => (
-          <div className="collapse collapse-plus text-black border-2 mb-4" key={ind}>
+          <div
+            className="collapse collapse-plus text-black border-2 mb-4"
+            key={ind}
+          >
             <input type="radio" name="my-accordion-3" defaultChecked />
-            <div className="collapse-title text-xl font-medium">Day 1</div>
+            <div className="collapse-title text-xl font-medium">
+              Day {ind + 1}
+            </div>
             <div className="collapse-content">
-              <div className="relative z-0 w-full mb-6 group">
-                <input
-                  type="title"
-                  name="floating_email"
-                  id="floating_email"
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required=""
-                />
-                <label
-                  htmlFor="floating_email"
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Info
-                </label>
-              </div>
+              <p>{ele}</p>
             </div>
           </div>
         ))}
-        <div className="flex gap-6 justify-center">
+
+        <div className="relative flex gap-8 z-0 w-full mb-6 group">
+          <input
+            type="title"
+            name="floating_email"
+            id="floating_email"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          <label
+            htmlFor="floating_email"
+            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >
+            Info
+          </label>
           <button
             onClick={(e) => {
               e.preventDefault();
-              setAccordion([...accordion, 0]);
+              setAccordion([...accordion, input]);
             }}
             className=" text-xl px-6 py-2 my-4 border-2 rounded-lg border-black "
           >
             Add
           </button>
+        </div>
+        <div className="flex gap-6 justify-center">
           <button
             onClick={(e) => {
               e.preventDefault();
