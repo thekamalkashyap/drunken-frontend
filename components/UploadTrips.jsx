@@ -1,7 +1,9 @@
-import React, { useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function UploadTrips() {
   // State to manage form values
+  const [input, setInput] = useState("");
+  const [accordion, setAccordion] = useState([]);
   const [formValues, setFormValues] = useState({
     title: "",
     aboutTour: "",
@@ -11,6 +13,8 @@ export default function UploadTrips() {
     duration: "",
     startsAt: "",
     category: "",
+    destination:"",
+    roadmap:[]
   });
 
   // Function to handle form input changes
@@ -19,43 +23,51 @@ export default function UploadTrips() {
     setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
   };
 
+
+  function stringify(obj) {
+    let cache = [];
+    let str = JSON.stringify(obj, function(key, value) {
+      if (typeof value === "object" && value !== null) {
+        if (cache.indexOf(value) !== -1) {
+          // Circular reference found, discard key
+          return;
+        }
+        // Store value in our collection
+        cache.push(value);
+      }
+      return value;
+    });
+    cache = null; // reset the cache
+    return str;
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
     try {
       // Make a request to the server for authentication
+      setFormValues((prevValues) => ({ ...prevValues, roadmap: accordion }));
+      console.log("form", formValues)
       const response = await fetch(
         "http://localhost:5000/api/trips/uploadTrip",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "authToken":localStorage.getItem("authToken")
           },
-          body: JSON.stringify({
-            title,
-            aboutTour,
-            inclusion,
-            exclusion,
-            price,
-            duration,
-            startsAt,
-            category,
-          }),
+          body: stringify(formValues)
         }
       );
 
       const data = await response.json();
-      if (data.success) {
-        localStorage.setItem("authToken", data.authToken);
-        router.push("/admin_portal/dashboard");
-      } else {
-        setLoginFailed(true);
-      }
+      console.log("response",data);
     } catch (error) {
       console.error("Error during authentication", error);
     }
   };
-  const [input, setInput] = useState("");
-  const [accordion, setAccordion] = useState([]);
+  
+  
   return (
     <div >
       <form onSubmit={handleSubmit}>
@@ -218,9 +230,28 @@ export default function UploadTrips() {
               <option value="" disabled>
                 Select category
               </option>
-              <option value="upcomingTrips">Upcoming Trips</option>
-              <option value="internationalTrips">International Trips</option>
+              <option value="upcomingTrip">Upcoming Trips</option>
+              <option value="internationalTrip">International Trips</option>
             </select>
+            
+          </div>
+          <div className="relative z-0 w-full mb-6 group">
+            <input
+              type="text"
+              name="destination"
+              id="destination"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              value={formValues.destination}
+              onChange={handleInputChange}
+              required
+            />
+            <label
+              htmlFor="destination"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              destination
+            </label>
           </div>
         </div>
         {accordion.map((ele, ind) => (
@@ -239,16 +270,16 @@ export default function UploadTrips() {
         ))}
 
         <div className="relative flex gap-8 z-0 w-full mb-6 group">
-          <input
-            type="title"
-            name="floating_email"
-            id="floating_email"
+          <textarea
+            type="text"
+            name="dayInfo"
+            id="dayInfo"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
           <label
-            htmlFor="floating_email"
+            htmlFor="dayInfo"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
             Info
@@ -257,6 +288,7 @@ export default function UploadTrips() {
             onClick={(e) => {
               e.preventDefault();
               setAccordion([...accordion, input]);
+              setInput("");
             }}
             className=" text-xl px-6 py-2 my-4 border-2 rounded-lg border-black "
           >

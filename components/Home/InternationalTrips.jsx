@@ -1,6 +1,5 @@
 import Card from "./Card";
 import Heading from "../Heading";
-import {useEffect} from "react";
 
 export default ({internationalTrips}) => {
   

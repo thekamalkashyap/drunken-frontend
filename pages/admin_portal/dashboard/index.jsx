@@ -21,14 +21,47 @@ export default function index() {
     setAllTrips(data);
   };
 
+  
+
   useEffect(() => {
-    if (allTrips.length === 0) {
-      fetchTrips();
-    }
-    if (!localStorage.getItem("authToken")) {
-      router.push("/invalid_access");
-    }
+    // Function to parse URL parameters
+    const getUrlParameter = (name) => {
+      const searchParams = new URLSearchParams(window.location.search);
+      return searchParams.get(name) || "";
+    };
+  
+    const fetchAndSetTrips = async () => {
+      if (allTrips.length === 0) {
+        await fetchTrips();
+      }
+  
+      if (!localStorage.getItem("authToken")) {
+        router.push("/invalid_access");
+      }
+  
+      // Get tab from URL and set state
+      const currentTab = getUrlParameter("activeTab");
+      if (currentTab) {
+        if (currentTab > 3){
+          setActiveTab(parseInt(1, 10));
+        }
+        setActiveTab(parseInt(currentTab, 10));
+      }
+    };
+  
+    fetchAndSetTrips();
   }, []);
+  
+  useEffect(() => {
+    // Update the URL with the email value
+    if (activeTab > 3){
+      setActiveTab(1)
+    }
+    const queryString = activeTab ? `?activeTab=${encodeURIComponent(activeTab)}` : "";
+    window.history.replaceState({}, "", queryString);
+  }, [activeTab]);
+
+
   return (
     <div className="flex">
       <button
