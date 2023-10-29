@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default ({currentTrip}) => {
   return (
     <div className="flex text-black">
@@ -31,7 +33,7 @@ export default ({currentTrip}) => {
         </div>
         <div className="flex flex-col gap-6">
           <button className=" flex text-xl justify-center gap-2 rounded-lg py-4 w-full bg-[#489CB0]">
-            <span>Book Now</span>
+            <span><Link href={`/contact_us?firstName=&lastName=&email=&tripName=${currentTrip?.title}`}>Book Now</Link></span>
             <img className=" h-6 w-6 " src="/Home/calendarw.png" alt="" />
           </button>
           <button className=" flex text-xl w-full justify-center gap-2 py-4 rounded-lg border-2 border-[#489CB0]">

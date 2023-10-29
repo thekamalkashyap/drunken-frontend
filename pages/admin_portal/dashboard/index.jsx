@@ -63,7 +63,7 @@ export default function index() {
 
 
   return (
-    <div className="flex">
+    <div className="flex relative">
       <button
         onClick={toggleSidebar}
         aria-controls="logo-sidebar"
@@ -193,7 +193,7 @@ export default function index() {
           activeTab === 2 ? "block" : "hidden"
         }`}
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 my-10 mx-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 my-10 pr-8">
           {allTrips &&
             allTrips.map((item) => (
               <Card key={item._id} trip={item} id={item._id} />
