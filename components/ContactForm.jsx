@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 
-export default () => {
+export default ({setFormSubmitted}) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -45,11 +45,12 @@ export default () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your form submission logic here
+    localStorage.setItem("ContactFormSubmitted", true);
+    setFormSubmitted(true);
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="grid md:grid-cols-2 md:gap-6 text-lg font-medium">
         <div className="relative z-0 w-full mb-6 group">
           <input

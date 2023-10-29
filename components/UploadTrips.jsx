@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 export default function UploadTrips() {
+  // State to manage file upload
+  const [files, setFiles] = useState([]);
+  const [imagesPaths, setImagesPaths] = useState([]);
+
   // State to manage form values
   const [input, setInput] = useState("");
+  const [tripUploaded, setTripUploaded] = useState(false);
+  const [tripFailed, setTripFailed] = useState(false);
   const [accordion, setAccordion] = useState([]);
   const [formValues, setFormValues] = useState({
     title: "",
@@ -13,9 +19,16 @@ export default function UploadTrips() {
     duration: "",
     startsAt: "",
     category: "",
-    destination:"",
-    roadmap:[]
+    destination: "",
+    roadmap: [],
+    images: [],
   });
+
+  const handleDeleteAccordion = (index) => {
+    const updatedAccordion = [...accordion];
+    updatedAccordion.splice(index, 1);
+    setAccordion(updatedAccordion);
+  };
 
   // Function to handle form input changes
   const handleInputChange = (e) => {
@@ -23,10 +36,9 @@ export default function UploadTrips() {
     setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
   };
 
-
   function stringify(obj) {
     let cache = [];
-    let str = JSON.stringify(obj, function(key, value) {
+    let str = JSON.stringify(obj, function (key, value) {
       if (typeof value === "object" && value !== null) {
         if (cache.indexOf(value) !== -1) {
           // Circular reference found, discard key
@@ -41,35 +53,108 @@ export default function UploadTrips() {
     return str;
   }
 
+  useEffect(() => {
+    setFormValues((prevValues) => ({ ...prevValues, roadmap: accordion }));
+  }, [accordion]);
+
+  useEffect(() => {
+    setFormValues((prevValues) => ({ ...prevValues, images: imagesPaths }));
+  }, [imagesPaths]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    try {
-      // Make a request to the server for authentication
-      console.log("form", formValues)
-      const response = await fetch(
-        "http://localhost:5000/api/trips/uploadTrip",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "authToken":localStorage.getItem("authToken")
-          },
-          body: stringify(formValues)
-        }
-      );
 
-      const data = await response.json();
-      console.log("response",data);
+    const formData = new FormData();
+    for (const file of files) {
+      formData.append("files", file);
+    }
+
+    try {
+      const fileResponse = await fetch("http://localhost:5000/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (fileResponse.ok) {
+        const { imagePaths } = await fileResponse.json();
+        setImagesPaths(imagePaths);
+        const jsonData = {
+          title: formValues.title,
+          aboutTour: formValues.aboutTour,
+          inclusions: formValues.inclusions,
+          exclusions: formValues.exclusions,
+          price: formValues.price,
+          duration: formValues.duration,
+          startsAt: formValues.startsAt,
+          category: formValues.category,
+          destination: formValues.destination,
+          roadmap: formValues.roadmap,
+          images: imagePaths,
+        };
+
+        // Move the form submission inside the if block
+        const response = await fetch(
+          "http://localhost:5000/api/trips/uploadTrip",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              authToken: localStorage.getItem("authToken"),
+            },
+            body: stringify(jsonData),
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          setTripUploaded(true);
+          setFormValues({
+            title: "",
+            aboutTour: "",
+            inclusions: "",
+            exclusions: "",
+            price: "",
+            duration: "",
+            startsAt: "",
+            category: "",
+            destination: "",
+            roadmap: [],
+            images: [],
+          });
+          setAccordion([]);
+        } else {
+          setTripFailed(true);
+        }
+      } else {
+        throw new Error("File Not Uploaded");
+      }
     } catch (error) {
+      setTripFailed(true);
       console.error("Error during authentication", error);
     }
   };
-  
-  
+
+  const handleFileChange = (e) => {
+    setFiles([...e.target.files]);
+  };
+
   return (
-    <div >
+    <div>
       <form onSubmit={handleSubmit}>
+        <h1
+          className={`text-green-600 text-4xl mb-8 ${
+            tripUploaded ? "block" : "hidden"
+          }`}
+        >
+          Trip Uploaded
+        </h1>
+        <h1
+          className={`text-red-600 text-4xl mb-8 ${
+            tripFailed ? "block" : "hidden"
+          }`}
+        >
+          Something went wrong
+        </h1>
         <div className="relative z-0 w-full mb-6 group">
           <input
             type="text"
@@ -161,19 +246,23 @@ export default function UploadTrips() {
               Price
             </label>
           </div>
+
           <div className="relative z-0 w-full mb-6 group">
             <input
-              type="file"
-              name="images"
-              id="images"
+              type="text"
+              name="destination"
+              id="destination"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
+              value={formValues.destination}
+              onChange={handleInputChange}
+              required
             />
             <label
-              htmlFor="images"
+              htmlFor="destination"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Upload Images
+              destination
             </label>
           </div>
         </div>
@@ -232,26 +321,44 @@ export default function UploadTrips() {
               <option value="upcomingTrip">Upcoming Trips</option>
               <option value="internationalTrip">International Trips</option>
             </select>
-            
           </div>
           <div className="relative z-0 w-full mb-6 group">
             <input
-              type="text"
-              name="destination"
-              id="destination"
+              type="file"
+              name="file"
+              id="images"
+              onChange={handleFileChange}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              value={formValues.destination}
-              onChange={handleInputChange}
-              required
+              multiple
             />
             <label
-              htmlFor="destination"
+              htmlFor="images"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              destination
+              Upload Images
             </label>
           </div>
+        </div>
+        <div className="grid md:grid-cols-3 md:gap-6 mb-4">
+          {files.map((file, index) => (
+            <div className="relative  p-2 w-auto flex items-center justify-center" key={index}>
+              <div
+                className="absolute top-0 right-0 text-black text-lg cursor-pointer rounded-full border-black"
+                onClick={() => {
+                  const updatedFiles = files.filter((_, i) => i !== index);
+                  setFiles(updatedFiles);
+                }}
+              >
+                &#10060; 
+              </div>
+              <img
+                className="h-72 object-contain rounded-3xl"
+                src={URL.createObjectURL(file)}
+                alt={`Image ${index + 1}`}
+              />
+            </div>
+          ))}
         </div>
         {accordion.map((ele, ind) => (
           <div
@@ -259,9 +366,19 @@ export default function UploadTrips() {
             key={ind}
           >
             <input type="radio" name="my-accordion-3" defaultChecked />
+
             <div className="collapse-title text-xl font-medium">
               Day {ind + 1}
             </div>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                handleDeleteAccordion(ind);
+              }}
+              className=" text-sm border-2 px-2 ml-4 mb-4 rounded-lg border-red-800 text-red-700 w-16 "
+            >
+              Delete
+            </button>
             <div className="collapse-content">
               <p>{ele}</p>
             </div>
@@ -275,37 +392,24 @@ export default function UploadTrips() {
             id="dayInfo"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             value={input}
+            placeholder=" "
             onChange={(e) => setInput(e.target.value)}
           />
           <label
             htmlFor="dayInfo"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            className="peer-focus:font-medium absolute text-sm text-gray-700 dark:text-gray-700 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Info
+            Day {accordion.length + 1}
           </label>
           <button
             onClick={(e) => {
               e.preventDefault();
               setAccordion([...accordion, input]);
               setInput("");
-              setFormValues((prevValues) => ({ ...prevValues, roadmap: accordion }));
             }}
-            className=" text-xl px-6 py-2 my-4 border-2 rounded-lg border-black "
+            className=" text-xl px-2 my-4 border-2 rounded-lg border-black "
           >
-            Add
-          </button>
-        </div>
-        <div className="flex gap-6 justify-center">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              const arr = accordion;
-              arr.pop();
-              setAccordion([...arr]);
-            }}
-            className=" text-xl px-6 py-2 my-4 border-2 rounded-lg border-black "
-          >
-            Remove
+            +
           </button>
         </div>
         <button

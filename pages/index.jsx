@@ -5,6 +5,8 @@ import {
   Testimonials,
 } from "@/components/Home";
 import { useEffect, useState } from "react";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default () => {
   const [upcomingTrips, setupcomingTrips] = useState(null);
@@ -41,7 +43,20 @@ export default () => {
   }, [upcomingTrips]);
 
   return (
-    <div >
+    <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
       <Hero />
       <UpcomingTrips upcomingTrips={upcomingTrips} />
       <InternationalTrips internationalTrips={internationalTrips} />

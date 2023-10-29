@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default () => {
   return (
     <footer className=" xl:h-[90vh] bg-[url(/Home/herobg.png)] flex gap-8 flex-col items-center py-6 md:py-12 px-6 md:px-16 justify-center text-white bg-[#2F6A7F] bg-blend-overlay bg-cover bg-no-repeat">
@@ -8,9 +10,9 @@ export default () => {
             Connect with our experts! Get the best itineraries and offers!
           </p>
           <div className="flex-1 flex justify-end">
-            <button className="from-[#10B5CB] bg-[#0073A8] bg-gradient-to-r py-2 px-10 text-white rounded-full">
+            <Link href={'/contact_us'} className="from-[#10B5CB] bg-[#0073A8] bg-gradient-to-r py-2 px-10 text-white rounded-full">
               Connect Us
-            </button>
+            </Link>
           </div>
         </div>
       </div>

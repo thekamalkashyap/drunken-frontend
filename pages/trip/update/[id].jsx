@@ -1,4 +1,4 @@
-import { UploadTrips } from "@/components";
+import { UpdateTrips } from "@/components";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -16,6 +16,12 @@ const Page = () => {
   };
 
   useEffect(() => {
+    if (localStorage.getItem("authToken")){
+      
+    }
+  }, [])
+  
+  useEffect(() => {
     if (id && !currentTrip) {
       fetchTrip();
     }
@@ -23,7 +29,7 @@ const Page = () => {
 
   return (
     <div className={`h-full w-full p-8`}>
-      <UploadTrips currentTrip={currentTrip} />
+      <UpdateTrips currentTrip={currentTrip} />
     </div>
   );
 };
