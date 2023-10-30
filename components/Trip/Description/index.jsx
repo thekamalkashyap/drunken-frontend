@@ -25,16 +25,16 @@ export default ({ currentTrip }) => {
           );
         })}
       </div>
-      <div>
-        <div className="collapse-title text-xl font-medium">
+      <div className="w-full">
+        <div className="collapse-title text-xl font-medium w-full">
           <Heading className=" my-2">Inclusions</Heading>
-          <p className="whitespace-pre-wrap mt-4">
+          <p className="whitespace-pre-wrap mt-4 w-full">
             {currentTrip?.inclusions}
           </p>
         </div>
-        <div className="collapse-title text-xl font-medium">
+        <div className="collapse-title text-xl font-medium w-full">
           <Heading className=" my-2">Exclusions</Heading>
-          <p className="whitespace-pre-wrap mt-4">
+          <p className="whitespace-pre-wrap mt-4 w-full">
             {currentTrip?.exclusions}
           </p>
         </div>

@@ -21,16 +21,49 @@ export default function index() {
     setAllTrips(data);
   };
 
+  
+
   useEffect(() => {
-    if (allTrips.length === 0) {
-      fetchTrips();
-    }
-    if (!localStorage.getItem("authToken")) {
-      router.push("/invalid_access");
-    }
+    // Function to parse URL parameters
+    const getUrlParameter = (name) => {
+      const searchParams = new URLSearchParams(window.location.search);
+      return searchParams.get(name) || "";
+    };
+  
+    const fetchAndSetTrips = async () => {
+      if (allTrips.length === 0) {
+        await fetchTrips();
+      }
+  
+      if (!localStorage.getItem("authToken")) {
+        router.push("/invalid_access");
+      }
+  
+      // Get tab from URL and set state
+      const currentTab = getUrlParameter("activeTab");
+      if (currentTab) {
+        if (currentTab > 3){
+          setActiveTab(parseInt(1, 10));
+        }
+        setActiveTab(parseInt(currentTab, 10));
+      }
+    };
+  
+    fetchAndSetTrips();
   }, []);
+  
+  useEffect(() => {
+    // Update the URL with the email value
+    if (activeTab > 3){
+      setActiveTab(1)
+    }
+    const queryString = activeTab ? `?activeTab=${encodeURIComponent(activeTab)}` : "";
+    window.history.replaceState({}, "", queryString);
+  }, [activeTab]);
+
+
   return (
-    <div className="flex">
+    <div className="flex relative">
       <button
         onClick={toggleSidebar}
         aria-controls="logo-sidebar"
@@ -160,7 +193,7 @@ export default function index() {
           activeTab === 2 ? "block" : "hidden"
         }`}
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 my-10 mx-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 my-10 pr-8">
           {allTrips &&
             allTrips.map((item) => (
               <Card key={item._id} trip={item} id={item._id} />

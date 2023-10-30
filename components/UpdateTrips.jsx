@@ -1,13 +1,13 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-export default function UploadTrips() {
-  // State to manage file upload
-  const [files, setFiles] = useState([]);
-  const [imagesPaths, setImagesPaths] = useState([]);
-
+export default function UploadTrips({ currentTrip }) {
   // State to manage form values
   const [input, setInput] = useState("");
-  const [tripUploaded, setTripUploaded] = useState(false);
+  const [files, setFiles] = useState([]);
+  const router = useRouter();
+  const Tripid = router.query.id;
+  const [tripUpdated, setTripUpdated] = useState(false);
   const [tripFailed, setTripFailed] = useState(false);
   const [accordion, setAccordion] = useState([]);
   const [formValues, setFormValues] = useState({
@@ -57,10 +57,6 @@ export default function UploadTrips() {
     setFormValues((prevValues) => ({ ...prevValues, roadmap: accordion }));
   }, [accordion]);
 
-  useEffect(() => {
-    setFormValues((prevValues) => ({ ...prevValues, images: imagesPaths }));
-  }, [imagesPaths]);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -77,7 +73,8 @@ export default function UploadTrips() {
 
       if (fileResponse.ok) {
         const { imagePaths } = await fileResponse.json();
-        setImagesPaths(imagePaths);
+        const imageUrls = [...formValues.images, ...imagePaths];
+
         const jsonData = {
           title: formValues.title,
           aboutTour: formValues.aboutTour,
@@ -89,14 +86,14 @@ export default function UploadTrips() {
           category: formValues.category,
           destination: formValues.destination,
           roadmap: formValues.roadmap,
-          images: imagePaths,
+          images: imageUrls,
         };
 
-        // Move the form submission inside the if block
+        // Make a request to the server for authentication
         const response = await fetch(
-          "http://localhost:5000/api/trips/uploadTrip",
+          `http://localhost:5000/api/trips/updateTrip/${Tripid}`,
           {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
               authToken: localStorage.getItem("authToken"),
@@ -104,29 +101,12 @@ export default function UploadTrips() {
             body: stringify(jsonData),
           }
         );
-
         if (response.ok) {
-          const data = await response.json();
-          setTripUploaded(true);
-          setFormValues({
-            title: "",
-            aboutTour: "",
-            inclusions: "",
-            exclusions: "",
-            price: "",
-            duration: "",
-            startsAt: "",
-            category: "",
-            destination: "",
-            roadmap: [],
-            images: [],
-          });
-          setAccordion([]);
+          router.push("/admin_portal/dashboard?activeTab=2");
         } else {
-          setTripFailed(true);
+          const errorMessage = await response.text();
+          throw new Error(`Failed to delete trip: ${errorMessage}`);
         }
-      } else {
-        throw new Error("File Not Uploaded");
       }
     } catch (error) {
       setTripFailed(true);
@@ -134,19 +114,32 @@ export default function UploadTrips() {
     }
   };
 
-  const handleFileChange = (e) => {
-    setFiles([...e.target.files]);
-  };
+  useEffect(() => {
+    setFormValues({
+      title: currentTrip?.title,
+      aboutTour: currentTrip?.aboutTour,
+      inclusions: currentTrip?.inclusions,
+      exclusions: currentTrip?.exclusions,
+      price: currentTrip?.price,
+      duration: currentTrip?.duration,
+      startsAt: currentTrip?.startsAt,
+      category: currentTrip?.category,
+      destination: currentTrip?.destination,
+      roadmap: currentTrip?.roadmap,
+      images: currentTrip?.images,
+    });
+    setAccordion(currentTrip?.roadmap);
+  }, [currentTrip]);
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <h1
           className={`text-green-600 text-4xl mb-8 ${
-            tripUploaded ? "block" : "hidden"
+            tripUpdated ? "block" : "hidden"
           }`}
         >
-          Trip Uploaded
+          Trip Updated
         </h1>
         <h1
           className={`text-red-600 text-4xl mb-8 ${
@@ -162,7 +155,7 @@ export default function UploadTrips() {
             id="title"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            value={formValues.title}
+            value={formValues.title || ""}
             onChange={handleInputChange}
             required
           />
@@ -180,7 +173,7 @@ export default function UploadTrips() {
             id="aboutTour"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            value={formValues.aboutTour}
+            value={formValues.aboutTour || ""}
             onChange={handleInputChange}
             required
           />
@@ -198,7 +191,7 @@ export default function UploadTrips() {
             id="inclusions"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            value={formValues.inclusions}
+            value={formValues.inclusions || ""}
             onChange={handleInputChange}
             required
           />
@@ -216,7 +209,7 @@ export default function UploadTrips() {
             id="exclusions"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            value={formValues.exclusions}
+            value={formValues.exclusions || ""}
             onChange={handleInputChange}
             required
           />
@@ -235,7 +228,7 @@ export default function UploadTrips() {
               id="price"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              value={formValues.price}
+              value={formValues.price || ""}
               onChange={handleInputChange}
               required
             />
@@ -254,7 +247,7 @@ export default function UploadTrips() {
               id="destination"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              value={formValues.destination}
+              value={formValues.destination || ""}
               onChange={handleInputChange}
               required
             />
@@ -274,7 +267,7 @@ export default function UploadTrips() {
               id="duration"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              value={formValues.duration}
+              value={formValues.duration || ""}
               onChange={handleInputChange}
               required
             />
@@ -292,7 +285,7 @@ export default function UploadTrips() {
               id="startsAt"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              value={formValues.startsAt}
+              value={formValues.startsAt || ""}
               onChange={handleInputChange}
               required
             />
@@ -311,7 +304,7 @@ export default function UploadTrips() {
               id="category"
               name="category"
               className="bg-white ml-4 "
-              value={formValues.category}
+              value={formValues.category || ""}
               onChange={handleInputChange}
               required
             >
@@ -325,11 +318,11 @@ export default function UploadTrips() {
           <div className="relative z-0 w-full mb-6 group">
             <input
               type="file"
-              name="file"
+              name="images"
               id="images"
-              onChange={handleFileChange}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
+              onChange={(e) => setFiles([...e.target.files])}
               multiple
             />
             <label
@@ -341,8 +334,37 @@ export default function UploadTrips() {
           </div>
         </div>
         <div className="grid md:grid-cols-3 md:gap-6 mb-4">
+          {formValues?.images?.map((imagePath, index) => (
+            <div
+              className="relative  p-2 w-auto flex items-center justify-center"
+              key={index}
+            >
+              <div
+                className="absolute top-0 right-0 text-black text-lg cursor-pointer rounded-full border-black"
+                onClick={() => {
+                  const updatedFiles = formValues?.images.filter(
+                    (_, i) => i !== index
+                  );
+                  setFormValues((prevValues) => ({
+                    ...prevValues,
+                    images: updatedFiles,
+                  }));
+                }}
+              >
+                &#10060;
+              </div>
+              <img
+                className="h-72  rounded-3xl"
+                src={`http://localhost:5000${imagePath}`}
+                alt="test"
+              />
+            </div>
+          ))}
           {files.map((file, index) => (
-            <div className="relative  p-2 w-auto flex items-center justify-center" key={index}>
+            <div
+              className="relative  p-2 w-auto flex items-center justify-center"
+              key={index}
+            >
               <div
                 className="absolute top-0 right-0 text-black text-lg cursor-pointer rounded-full border-black"
                 onClick={() => {
@@ -350,7 +372,7 @@ export default function UploadTrips() {
                   setFiles(updatedFiles);
                 }}
               >
-                &#10060; 
+                &#10060;
               </div>
               <img
                 className="h-72 object-contain rounded-3xl"
@@ -360,7 +382,7 @@ export default function UploadTrips() {
             </div>
           ))}
         </div>
-        {accordion.map((ele, ind) => (
+        {accordion?.map((ele, ind) => (
           <div
             className="collapse collapse-plus text-black border-2 mb-4"
             key={ind}
@@ -399,7 +421,7 @@ export default function UploadTrips() {
             htmlFor="dayInfo"
             className="peer-focus:font-medium absolute text-sm text-gray-700 dark:text-gray-700 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Day {accordion.length + 1}
+            Day {accordion?.length + 1}
           </label>
           <button
             onClick={(e) => {
@@ -416,7 +438,7 @@ export default function UploadTrips() {
           type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Upload Trip
+          Update Trip
         </button>
       </form>
     </div>

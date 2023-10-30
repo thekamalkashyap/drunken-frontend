@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default ({ currentTrip }) => {
   return (
     <div className="flex flex-col-reverse md:flex-row text-black">
@@ -27,9 +29,15 @@ export default ({ currentTrip }) => {
             {currentTrip?.startsAt}
           </h3>
         </div>
-        <div className="flex mt-8 w-full md:m-auto flex-col gap-6">
-          <button className="flex text-xl justify-center gap-2 rounded-lg py-4 w-full bg-[#489CB0]">
-            <span>Book Now</span>
+        <div className="flex flex-col gap-6">
+          <button className=" flex text-xl justify-center gap-2 rounded-lg py-4 w-full bg-[#489CB0]">
+            <span>
+              <Link
+                href={`/contact_us?firstName=&lastName=&email=&tripName=${currentTrip?.title}`}
+              >
+                Book Now
+              </Link>
+            </span>
             <img className=" h-6 w-6 " src="/Home/calendarw.png" alt="" />
           </button>
           <button className=" flex text-xl w-full justify-center gap-2 py-4 rounded-lg border-2 border-[#489CB0]">
@@ -38,11 +46,16 @@ export default ({ currentTrip }) => {
         </div>
       </div>
       <div className="flex-1 p-8 flex justify-center items-center">
-        <img
-          className=" w-[80vw] md:w-auto md:h-[calc(85vh-4rem)]"
-          src="/test.png"
-          alt="test"
-        />
+        {currentTrip?.images.map((imagePath) => (
+          <img
+            className="h-[calc(85vh-4rem)] rounded-3xl"
+            src={`http://localhost:5000${imagePath}`}
+            alt="test"
+          />
+        ))}
+        {currentTrip?.images.length === 0 && (
+          <img className="h-[calc(85vh-4rem)]" src={`/test.png`} alt="test" />
+        )}
       </div>
     </div>
   );
