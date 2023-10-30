@@ -1,7 +1,7 @@
-export default ({currentTrip}) => {
+export default ({ currentTrip }) => {
   return (
-    <div className="flex text-black">
-      <div className="flex-1 p-16 flex flex-col justify-center gap-6 ">
+    <div className="flex flex-col-reverse md:flex-row text-black">
+      <div className="flex-1 p-16 flex flex-col justify-center gap-6 md:gap-8">
         <div className="flex gap-6 items-center">
           <div className="flex gap-3 justify-center items-center">
             <img className="h-6 w-6" src={`/Home/clock.png`} alt="" />
@@ -16,11 +16,9 @@ export default ({currentTrip}) => {
             </h3>
           </div>
         </div>
-        <h3 className="text-2xl font-bold text-black ">
-          {currentTrip?.title}
-        </h3>
+        <h3 className="text-2xl font-bold text-black ">{currentTrip?.title}</h3>
         <div>
-          <span >Starts at</span>
+          <span>Starts at</span>
           <span className=" font-semibold ml-2">₹{currentTrip?.price}</span>
         </div>
         <div className="flex gap-3 items-center">
@@ -29,8 +27,8 @@ export default ({currentTrip}) => {
             {currentTrip?.startsAt}
           </h3>
         </div>
-        <div className="flex flex-col gap-6">
-          <button className=" flex text-xl justify-center gap-2 rounded-lg py-4 w-full bg-[#489CB0]">
+        <div className="flex mt-8 w-full md:m-auto flex-col gap-6">
+          <button className="flex text-xl justify-center gap-2 rounded-lg py-4 w-full bg-[#489CB0]">
             <span>Book Now</span>
             <img className=" h-6 w-6 " src="/Home/calendarw.png" alt="" />
           </button>
@@ -40,7 +38,11 @@ export default ({currentTrip}) => {
         </div>
       </div>
       <div className="flex-1 p-8 flex justify-center items-center">
-        <img className="h-[calc(85vh-4rem)] " src="/test.png" alt="test" />
+        <img
+          className=" w-[80vw] md:w-auto md:h-[calc(85vh-4rem)]"
+          src="/test.png"
+          alt="test"
+        />
       </div>
     </div>
   );

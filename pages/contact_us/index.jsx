@@ -2,23 +2,23 @@ import { ContactForm } from "@/components";
 
 export default () => {
   return (
-    <div className="w-full h-full flex items-center justify-center flex-col mx-16">
-      <div className="flex items-center justify-center w-full h-full">
-        <div className="w-full">
-          <div className="text-6xl font-medium h-full w-full my-16 text-black">
+    <div className="flex items-center justify-center flex-col p-6 md:p-10 lg:p-16">
+      <div className="flex flex-col-reverse md:flex-row items-center justify-center">
+        <div className="flex-[3]">
+          <div className="text-6xl font-medium h-full w-full my-8 md:my-16 text-black">
             Get Your Booking Done.
           </div>
           <div className="h-full w-full">
             <ContactForm />
           </div>
         </div>
-        <div className="w-full flex items-center justify-center h-full">
+        <div className="w-full flex-[2] flex items-center justify-center h-full">
           <figure className="">
-            <img src="/logo.png" alt="Drunken Roads" className=" " />
+            <img src="/logo.png" alt="Drunken Roads" className=" w-[45vw]" />
           </figure>
         </div>
       </div>
-      <div className="text-3xl my-8 text-gray-600">
+      <div className="md:text-3xl text-2xl text-center my-8 text-gray-600">
         Note: A Confirmation Ticket with Itinerary will be send to your Email
         ID.
       </div>

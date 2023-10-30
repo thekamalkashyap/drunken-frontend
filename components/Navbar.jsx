@@ -9,7 +9,9 @@ export default () => {
        gap-4 text-black text-xs lg:text-sm xl:text-base border-b-[.5px] border-black`}
     >
       <figure className="flex-[1] flex">
-        <a href="/"><img src="/logo.png" alt="Drunken Roads" /></a>
+        <a href="/">
+          <img src="/logo.png" alt="Drunken Roads" />
+        </a>
       </figure>
       {/* desktop view  */}
       <nav className="hidden lg:block flex-[2]">
@@ -26,11 +28,15 @@ export default () => {
       </nav>
       <nav className="hidden lg:block flex-[3]">
         <ul className="flex justify-end gap-8">
-
-          <li><a href="#upcomingTrips">Upcoming Trips</a></li>
-          <li><a href="#internationalTrips">Internatinal Trips</a></li>
-          <li><Link href="/contact_us">Contact Us</Link></li>
-          <li><Link href={"/admin_portal"}>Admin</Link></li>
+          <li>
+            <a href="#upcomingTrips">Upcoming Trips</a>
+          </li>
+          <li>
+            <a href="#internationalTrips">Internatinal Trips</a>
+          </li>
+          <li>
+            <Link href="/contact_us">Contact Us</Link>
+          </li>
         </ul>
       </nav>
       {/* mobile view  */}
@@ -63,21 +69,26 @@ export default () => {
         </div>
         <div className="h-[calc(100vh-4rem)] flex py-20 items-center flex-col">
           <nav>
-            <ul className=" flex flex-col justify-center items-center gap-4">
-              <li>Upcoming Trips</li>
-              <li>Internatinal Trips</li>
-              <li>Blogs</li>
-              <li>About Us</li>
+            <ul className=" text-2xl text-[#353535] font-semibold flex flex-col justify-center items-center gap-4">
+              <li>
+                <a href="#upcomingTrips">Upcoming Trips</a>
+              </li>
+              <li>
+                <a href="#internationalTrips">Internatinal Trips</a>
+              </li>
+              <li>
+                <Link href="/contact_us">Contact Us</Link>
+              </li>
             </ul>
           </nav>
-          <nav className=" my-4 ">
-            <ul className="flex flex-col font-medium justify-center gap-4">
-              <li className="flex justify-center gap-2">
-                <img src="/call.png" alt="" />
+          <nav className=" my-8 ">
+            <ul className="flex text-xl flex-col font-medium justify-center gap-4">
+              <li className="flex items-center justify-center ">
+                <img className="h-4 w-4 mr-2" src="/call.png" alt="" />
                 <span>+91-836-067-5025</span>
               </li>
-              <li className="flex justify-center gap-2">
-                <img src="/call.png" alt="" />
+              <li className="flex items-center justify-center ">
+                <img className="h-4 w-4 mr-2" src="/call.png" alt="" />
                 <span>+91-884-732-0823</span>
               </li>
             </ul>
