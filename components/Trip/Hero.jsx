@@ -54,7 +54,11 @@ export default ({ currentTrip }) => {
           />
         ))}
         {currentTrip?.images.length === 0 && (
-          <img className="h-[calc(85vh-4rem)]" src={`/test.png`} alt="test" />
+          <img
+            className="h-[calc(85vh-4rem)] rounded-3xl"
+            src={`/test.png`}
+            alt="test"
+          />
         )}
       </div>
     </div>
