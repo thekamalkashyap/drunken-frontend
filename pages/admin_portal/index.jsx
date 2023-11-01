@@ -8,6 +8,9 @@ export default function Index() {
   const [loginFailed, setLoginFailed] = useState(false)
 
   useEffect(() => {
+    if (localStorage.getItem("authToken")) {
+      router.push("/admin_portal/dashboard");
+    }
     // Function to parse URL parameters
     const getUrlParameter = (name) => {
       const searchParams = new URLSearchParams(window.location.search);
@@ -32,9 +35,6 @@ export default function Index() {
     const queryString = email ? `?email=${encodeURIComponent(email)}` : "";
     window.history.replaceState({}, "", queryString);
 
-    if(localStorage.getItem('authToken')){
-        router.push('/admin_portal/dashboard');
-    }
   }, [email]);
 
   const handleEmailChange = (event) => {
@@ -49,16 +49,19 @@ export default function Index() {
     event.preventDefault();
     try {
       // Make a request to the server for authentication
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
+      const response = await fetch(
+        "http://13.200.33.190/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
   
         const data = await response.json();
         if(data.success){

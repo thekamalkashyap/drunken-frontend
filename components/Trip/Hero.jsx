@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ImageResponse } from "next/server";
 
 export default ({ currentTrip }) => {
   return (
@@ -46,15 +47,16 @@ export default ({ currentTrip }) => {
         </div>
       </div>
       <div className="flex-1 p-8 flex justify-center items-center">
-        {currentTrip?.images.map((imagePath) => (
+        {currentTrip?.images.map((imagePath, index) => (
           <img
+            key={index}
             className="h-[calc(85vh-4rem)] rounded-3xl"
-            src={`http://localhost:5000${imagePath}`}
+            src={`http://13.200.33.190${imagePath}`}
             alt="test"
           />
         ))}
         {currentTrip?.images.length === 0 && (
-          <img
+          <ImageResponse
             className="h-[calc(85vh-4rem)] rounded-3xl"
             src={`/test.png`}
             alt="test"

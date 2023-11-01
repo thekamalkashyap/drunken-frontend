@@ -35,7 +35,7 @@ export default () => {
             <a href="/#internationalTrips">Internatinal Trips</a>
           </li>
           <li>
-            <Link href="/contact_us">Contact Us</Link>
+            <Link href="/contact_us">Book Now</Link>
           </li>
         </ul>
       </nav>
@@ -77,7 +77,7 @@ export default () => {
                 <a href="#internationalTrips">Internatinal Trips</a>
               </li>
               <li>
-                <Link href="/contact_us">Contact Us</Link>
+                <Link href="/contact_us">Book Now</Link>
               </li>
             </ul>
           </nav>

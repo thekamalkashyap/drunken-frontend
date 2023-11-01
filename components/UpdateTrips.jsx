@@ -66,7 +66,7 @@ export default function UploadTrips({ currentTrip }) {
     }
 
     try {
-      const fileResponse = await fetch("http://localhost:5000/api/upload", {
+      const fileResponse = await fetch("http://13.200.33.190/api/upload", {
         method: "POST",
         body: formData,
       });
@@ -91,7 +91,7 @@ export default function UploadTrips({ currentTrip }) {
 
         // Make a request to the server for authentication
         const response = await fetch(
-          `http://localhost:5000/api/trips/updateTrip/${Tripid}`,
+          `http://13.200.33.190/api/trips/updateTrip/${Tripid}`,
           {
             method: "PUT",
             headers: {

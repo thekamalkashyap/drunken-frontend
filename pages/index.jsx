@@ -5,8 +5,8 @@ import {
   Testimonials,
 } from "@/components/Home";
 import { useEffect, useState } from "react";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default () => {
   const [upcomingTrips, setupcomingTrips] = useState(null);
@@ -16,8 +16,9 @@ export default () => {
   const fetchTrip = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/trips/getAllTrips`
+        `http://13.200.33.190/api/trips/getAllTrips`
       );
+      
       const data = await response.json();
       const upcoming = [];
       const international = [];

@@ -70,7 +70,7 @@ export default function UploadTrips() {
     }
 
     try {
-      const fileResponse = await fetch("http://localhost:5000/api/upload", {
+      const fileResponse = await fetch("http://13.200.33.190/api/upload", {
         method: "POST",
         body: formData,
       });
@@ -94,7 +94,7 @@ export default function UploadTrips() {
 
         // Move the form submission inside the if block
         const response = await fetch(
-          "http://localhost:5000/api/trips/uploadTrip",
+          "http://13.200.33.190/api/trips/uploadTrip",
           {
             method: "POST",
             headers: {
@@ -108,6 +108,7 @@ export default function UploadTrips() {
         if (response.ok) {
           const data = await response.json();
           setTripUploaded(true);
+          setTripFailed(false);
           setFormValues({
             title: "",
             aboutTour: "",
@@ -129,7 +130,8 @@ export default function UploadTrips() {
         throw new Error("File Not Uploaded");
       }
     } catch (error) {
-      setTripFailed(true);
+          setTripUploaded(false);
+          setTripFailed(true);
       console.error("Error during authentication", error);
     }
   };
@@ -329,8 +331,7 @@ export default function UploadTrips() {
               id="images"
               onChange={handleFileChange}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              multiple
+              accept="image/*"
             />
             <label
               htmlFor="images"
@@ -342,7 +343,10 @@ export default function UploadTrips() {
         </div>
         <div className="grid md:grid-cols-3 md:gap-6 mb-4">
           {files.map((file, index) => (
-            <div className="relative  p-2 w-auto flex items-center justify-center" key={index}>
+            <div
+              className="relative  p-2 w-auto flex items-center justify-center"
+              key={index}
+            >
               <div
                 className="absolute top-0 right-0 text-black text-lg cursor-pointer rounded-full border-black"
                 onClick={() => {
@@ -350,7 +354,7 @@ export default function UploadTrips() {
                   setFiles(updatedFiles);
                 }}
               >
-                &#10060; 
+                &#10060;
               </div>
               <img
                 className="h-72 object-contain rounded-3xl"
