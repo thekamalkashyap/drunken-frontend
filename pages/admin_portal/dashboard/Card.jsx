@@ -42,7 +42,7 @@ export default function Card({ trip, className, id }) {
   };
 
   return (
-    <Link href={`/trip/${id}`} className="cursor-pointer">
+    <div>
       <div
         className={cn(
           `flex text-white flex-col justify-end p-8 w-[300px] md:w-[400px] h-[300px] md:h-[400px] rounded-2xl bg-no-repeat bg-cover bg-[linear-gradient(to_bottom,rgba(00,00,00,0),rgba(0,0,0,0.8)),url('http://localhost:5000/uploads/1698587547296_manalicPic.png')]`,
@@ -97,6 +97,6 @@ export default function Card({ trip, className, id }) {
           <span>{trip?.startsAt}</span>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

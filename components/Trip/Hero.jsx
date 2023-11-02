@@ -46,11 +46,12 @@ export default ({ currentTrip }) => {
         </div>
       </div>
       <div className="flex-1 p-8 flex justify-center items-center">
-        {currentTrip?.images.map((imagePath) => (
+        {currentTrip?.images.map((imagePath,index) => (
           <img
             className="h-[calc(85vh-4rem)] rounded-3xl"
             src={`http://localhost:5000${imagePath}`}
             alt="test"
+            key={index}
           />
         ))}
         {currentTrip?.images.length === 0 && (
