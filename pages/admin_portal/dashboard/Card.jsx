@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function Card({ trip, className, id }) {
-
   const router = useRouter();
   const confirmDelete = () => {
     return window.confirm("Are you sure you want to delete this trip?");
@@ -19,9 +18,9 @@ export default function Card({ trip, className, id }) {
     try {
       // Make a request to the server for authentication
       const response = await fetch(
-        `http://localhost:5000/api/trips/deleteTrip/${id}`,
+        `${process.env.NEXT_PUBLIC_API_HOST}/trips/deleteTrip/${id}`,
         {
-        method: "DELETE",
+          method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             authToken: localStorage.getItem("authToken"),
@@ -31,8 +30,7 @@ export default function Card({ trip, className, id }) {
 
       if (response.ok) {
         router.reload();
-      } 
-      else {
+      } else {
         const errorMessage = await response.text();
         throw new Error(`Failed to delete trip: ${errorMessage}`);
       }
@@ -44,8 +42,15 @@ export default function Card({ trip, className, id }) {
   return (
     <div>
       <div
+        style={{
+          "background-image": `linear-gradient(to bottom, rgba(00, 00, 00, 0), rgba(0, 0, 0, 0.8)), url(${
+            "n"
+              ? "/Home/kashmir.png"
+              : "http://13.200.33.190/uploads/1698587547296_manalicPic.png"
+          })`,
+        }}
         className={cn(
-          `flex text-white flex-col justify-end p-8 w-[300px] md:w-[400px] h-[300px] md:h-[400px] rounded-2xl bg-no-repeat bg-cover bg-[linear-gradient(to_bottom,rgba(00,00,00,0),rgba(0,0,0,0.8)),url('http://localhost:5000/uploads/1698587547296_manalicPic.png')]`,
+          `flex text-white flex-col justify-end p-8 w-[300px] md:w-[400px] h-[300px] md:h-[400px] rounded-2xl bg-no-repeat bg-cover`,
           className
         )}
       >

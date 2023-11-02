@@ -8,7 +8,9 @@ const Page = () => {
   const [currentTrip, setCurrentTrip] = useState();
 
   const fetchTrip = async () => {
-    const response = await fetch(`http://localhost:5000/api/trips/getTrip/${id}`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_HOST}/api/trips/getTrip/${id}`
+    );
     const data = await response.json();
     setCurrentTrip(data);
   };
@@ -21,7 +23,7 @@ const Page = () => {
 
   return (
     <>
-      <Hero currentTrip={currentTrip}/>
+      <Hero currentTrip={currentTrip} />
       <Description currentTrip={currentTrip} />
     </>
   );

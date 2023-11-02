@@ -1,9 +1,10 @@
 import Link from "next/link";
+import { ImageResponse } from "next/server";
 
 export default ({ currentTrip }) => {
   return (
-    <div className="flex text-black">
-      <div className="flex-1 p-16 flex flex-col justify-center gap-6 ">
+    <div className="flex flex-col-reverse md:flex-row text-black">
+      <div className="flex-1 p-16 flex flex-col justify-center gap-6 md:gap-8">
         <div className="flex gap-6 items-center">
           <div className="flex gap-3 justify-center items-center">
             <img className="h-6 w-6" src={`/Home/clock.png`} alt="" />
@@ -48,14 +49,18 @@ export default ({ currentTrip }) => {
       <div className="flex-1 p-8 flex justify-center items-center">
         {currentTrip?.images.map((imagePath,index) => (
           <img
-            className="h-[calc(85vh-4rem)] rounded-3xl"
-            src={`http://localhost:5000${imagePath}`}
-            alt="test"
             key={index}
+            className="h-[calc(85vh-4rem)] rounded-3xl"
+            src={`${process.env.NEXT_PUBLIC_API_HOST}${imagePath}`}
+            alt="test"
           />
         ))}
         {currentTrip?.images.length === 0 && (
-          <img className="h-[calc(85vh-4rem)]" src={`/test.png`} alt="test" />
+          <ImageResponse
+            className="h-[calc(85vh-4rem)] rounded-3xl"
+            src={`/test.png`}
+            alt="test"
+          />
         )}
       </div>
     </div>

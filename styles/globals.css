@@ -5,3 +5,7 @@
 *{
     scroll-behavior: smooth;
 }
+
+.bg-with-overlay{
+    background-image: linear-gradient(to bottom, rgba(00, 00, 00, 0), rgba(0, 0, 0, 0.8)), url('/Home/kashmir.png');
+}

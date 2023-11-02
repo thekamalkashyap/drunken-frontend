@@ -11,7 +11,7 @@ export default () => {
           </p>
           <div className="flex-1 flex justify-end">
             <Link href={'/contact_us'} className="from-[#10B5CB] bg-[#0073A8] bg-gradient-to-r py-2 px-10 text-white rounded-full">
-              Connect Us
+              Book Now
             </Link>
           </div>
         </div>

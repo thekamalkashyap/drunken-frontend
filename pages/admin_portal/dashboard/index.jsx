@@ -16,51 +16,58 @@ export default function index() {
 
   // Fetching trips from backend
   const fetchTrips = async () => {
-    const response = await fetch("http://localhost:5000/api/trips/getAllTrips");
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_HOST}/api/trips/getAllTrips`
+    );
     const data = await response.json();
     setAllTrips(data);
   };
 
-  
-
   useEffect(() => {
+    if (!localStorage.getItem("authToken")) {
+      router.push("/invalid_access");
+    }
     // Function to parse URL parameters
     const getUrlParameter = (name) => {
       const searchParams = new URLSearchParams(window.location.search);
       return searchParams.get(name) || "";
     };
-  
+
     const fetchAndSetTrips = async () => {
       if (allTrips.length === 0) {
         await fetchTrips();
       }
-  
+
       if (!localStorage.getItem("authToken")) {
         router.push("/invalid_access");
       }
-  
+
       // Get tab from URL and set state
       const currentTab = getUrlParameter("activeTab");
       if (currentTab) {
-        if (currentTab > 3){
+        if (currentTab > 3) {
           setActiveTab(parseInt(1, 10));
         }
         setActiveTab(parseInt(currentTab, 10));
       }
     };
-  
+
     fetchAndSetTrips();
   }, []);
-  
+
   useEffect(() => {
-    // Update the URL with the email value
-    if (activeTab > 3){
-      setActiveTab(1)
+    if (!localStorage.getItem("authToken")) {
+      router.push("/invalid_access");
     }
-    const queryString = activeTab ? `?activeTab=${encodeURIComponent(activeTab)}` : "";
+    // Update the URL with the email value
+    if (activeTab > 3) {
+      setActiveTab(1);
+    }
+    const queryString = activeTab
+      ? `?activeTab=${encodeURIComponent(activeTab)}`
+      : "";
     window.history.replaceState({}, "", queryString);
   }, [activeTab]);
-
 
   return (
     <div className="flex relative">
@@ -195,15 +202,15 @@ export default function index() {
       >
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 my-10 pr-8">
           {allTrips &&
-            allTrips.map((item) => (
-              <Card key={item._id} trip={item} id={item._id} />
+            allTrips.map((item, index) => (
+              <Card key={index} trip={item} id={item._id} />
             ))}
         </div>
       </div>
       <div
         id="Dashboard"
         className={`${
-          activeTab ===  1? "block" : "hidden"
+          activeTab === 1 ? "block" : "hidden"
         } h-auto w-full flex items-center gap-8 flex-col justify-center text-6xl font-semibold`}
       >
         Admin Dashboard
