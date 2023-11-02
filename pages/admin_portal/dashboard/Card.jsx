@@ -18,7 +18,7 @@ export default function Card({ trip, className, id }) {
     try {
       // Make a request to the server for authentication
       const response = await fetch(
-        `http://13.200.33.190/api/trips/deleteTrip/${id}`,
+        `${process.env.NEXT_PUBLIC_API_HOST}/trips/deleteTrip/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -42,8 +42,15 @@ export default function Card({ trip, className, id }) {
   return (
     <Link href={`/trip/${id}`} className="cursor-pointer">
       <div
+        style={{
+          "background-image": `linear-gradient(to bottom, rgba(00, 00, 00, 0), rgba(0, 0, 0, 0.8)), url(${
+            "n"
+              ? "/Home/kashmir.png"
+              : "http://13.200.33.190/uploads/1698587547296_manalicPic.png"
+          })`,
+        }}
         className={cn(
-          `flex text-white flex-col justify-end p-8 w-[300px] md:w-[400px] h-[300px] md:h-[400px] rounded-2xl bg-no-repeat bg-cover bg-[linear-gradient(to_bottom,rgba(00,00,00,0),rgba(0,0,0,0.8)),url('http://13.200.33.190/uploads/1698587547296_manalicPic.png')]`,
+          `flex text-white flex-col justify-end p-8 w-[300px] md:w-[400px] h-[300px] md:h-[400px] rounded-2xl bg-no-repeat bg-cover`,
           className
         )}
       >

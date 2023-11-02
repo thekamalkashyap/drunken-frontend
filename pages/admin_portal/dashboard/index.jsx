@@ -16,7 +16,9 @@ export default function index() {
 
   // Fetching trips from backend
   const fetchTrips = async () => {
-    const response = await fetch("http://13.200.33.190/api/trips/getAllTrips");
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_HOST}/api/trips/getAllTrips`
+    );
     const data = await response.json();
     setAllTrips(data);
   };
@@ -200,7 +202,7 @@ export default function index() {
       >
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 my-10 pr-8">
           {allTrips &&
-            allTrips.map((item,index) => (
+            allTrips.map((item, index) => (
               <Card key={index} trip={item} id={item._id} />
             ))}
         </div>

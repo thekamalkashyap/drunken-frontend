@@ -66,10 +66,13 @@ export default function UploadTrips({ currentTrip }) {
     }
 
     try {
-      const fileResponse = await fetch("http://13.200.33.190/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const fileResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_HOST}/api/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (fileResponse.ok) {
         const { imagePaths } = await fileResponse.json();
@@ -91,7 +94,7 @@ export default function UploadTrips({ currentTrip }) {
 
         // Make a request to the server for authentication
         const response = await fetch(
-          `http://13.200.33.190/api/trips/updateTrip/${Tripid}`,
+          `${process.env.NEXT_PUBLIC_API_HOST}/trips/updateTrip/${Tripid}`,
           {
             method: "PUT",
             headers: {
@@ -355,7 +358,7 @@ export default function UploadTrips({ currentTrip }) {
               </div>
               <img
                 className="h-72  rounded-3xl"
-                src={`http://localhost:5000${imagePath}`}
+                src={`${process.env.NEXT_PUBLIC_API_HOST}${imagePath}`}
                 alt="test"
               />
             </div>

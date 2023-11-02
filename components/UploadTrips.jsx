@@ -70,10 +70,13 @@ export default function UploadTrips() {
     }
 
     try {
-      const fileResponse = await fetch("http://13.200.33.190/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const fileResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_HOST}/api/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (fileResponse.ok) {
         const { imagePaths } = await fileResponse.json();
@@ -94,7 +97,7 @@ export default function UploadTrips() {
 
         // Move the form submission inside the if block
         const response = await fetch(
-          "http://13.200.33.190/api/trips/uploadTrip",
+          `${process.env.NEXT_PUBLIC_API_HOST}/api/trips/uploadTrip`,
           {
             method: "POST",
             headers: {

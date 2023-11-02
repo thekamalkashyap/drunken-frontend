@@ -50,7 +50,7 @@ export default function Index() {
     try {
       // Make a request to the server for authentication
       const response = await fetch(
-        "http://13.200.33.190/api/auth/login",
+        `${process.env.NEXT_PUBLIC_API_HOST}/api/auth/login`,
         {
           method: "POST",
           headers: {

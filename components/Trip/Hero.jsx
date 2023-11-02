@@ -51,7 +51,7 @@ export default ({ currentTrip }) => {
           <img
             key={index}
             className="h-[calc(85vh-4rem)] rounded-3xl"
-            src={`http://13.200.33.190${imagePath}`}
+            src={`${process.env.NEXT_PUBLIC_API_HOST}${imagePath}`}
             alt="test"
           />
         ))}

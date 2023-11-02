@@ -16,9 +16,9 @@ export default () => {
   const fetchTrip = async () => {
     try {
       const response = await fetch(
-        `http://13.200.33.190/api/trips/getAllTrips`
+        `${process.env.NEXT_PUBLIC_API_HOST}/api/trips/getAllTrips`
       );
-      
+
       const data = await response.json();
       const upcoming = [];
       const international = [];

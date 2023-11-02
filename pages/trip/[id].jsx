@@ -9,7 +9,7 @@ const Page = () => {
 
   const fetchTrip = async () => {
     const response = await fetch(
-      `http://13.200.33.190/api/trips/getTrip/${id}`
+      `${process.env.NEXT_PUBLIC_API_HOST}/api/trips/getTrip/${id}`
     );
     const data = await response.json();
     setCurrentTrip(data);
