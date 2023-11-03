@@ -94,7 +94,7 @@ export default function UploadTrips({ currentTrip }) {
 
         // Make a request to the server for authentication
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_HOST}/trips/updateTrip/${Tripid}`,
+          `${process.env.NEXT_PUBLIC_API_HOST}/api/trips/updateTrip/${Tripid}`,
           {
             method: "PUT",
             headers: {

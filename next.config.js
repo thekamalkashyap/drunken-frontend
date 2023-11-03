@@ -6,7 +6,7 @@ module.exports = (phase, { defaultConfig }) => {
   };
   return {
     ...defaultConfig,
-
+    ...nextConfig,
     webpack: (config) => {
       config.resolve = {
         ...config.resolve,

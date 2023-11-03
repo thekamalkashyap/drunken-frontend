@@ -18,7 +18,7 @@ export default function Card({ trip, className, id }) {
     try {
       // Make a request to the server for authentication
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_HOST}/trips/deleteTrip/${id}`,
+        `${process.env.NEXT_PUBLIC_API_HOST}/api/trips/deleteTrip/${id}`,
         {
           method: "DELETE",
           headers: {
