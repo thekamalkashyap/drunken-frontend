@@ -5,7 +5,7 @@ export default ({ internationalTrips }) => {
   return (
     <div className=" px-8 md:px-16" id="internationalTrips">
       <Heading>International Trips</Heading>
-      <div className="flex flex-wrap gap-4 my-12">
+      <div className="flex justify-center sm:justify-start flex-wrap gap-4 my-12">
         {internationalTrips?.length === 0 ? (
           <div className="font-bold text-2xl ml-16 text-blue-400">
             Trips Not Available
