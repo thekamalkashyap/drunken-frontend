@@ -10,7 +10,7 @@ export default () => {
     >
       <figure className="flex-[1] flex">
         <a href="/">
-          <img src="/logo.png" alt="Drunken Roads" />
+          <img className="h-20" src="/logo.png" alt="Drunken Roads" />
         </a>
       </figure>
       {/* desktop view  */}
