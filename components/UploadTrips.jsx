@@ -91,6 +91,7 @@ export default function UploadTrips() {
             body: pdfFormData,
           }
         );
+        console.log(pdfFileResponse.json())
         if (pdfFileResponse.ok) {
           const { imagePaths } = await fileResponse.json();
           const { itineraryPath } = await pdfFileResponse.json();
@@ -145,6 +146,7 @@ export default function UploadTrips() {
             setTripFailed(true);
           }
         } else {
+          console.log(pdfFileResponse.json());
           throw new Error("File Not Uploaded");
         }
       }
