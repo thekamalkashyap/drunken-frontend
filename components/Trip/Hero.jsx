@@ -14,7 +14,7 @@ const responsive = {
 export default ({ currentTrip }) => {
   return (
     <div className="flex flex-col-reverse md:flex-row text-black">
-      <div className="flex-[3] p-16 flex flex-col justify-center gap-6 md:gap-8">
+      <div className="flex-[3] p-6 md:p-16 flex flex-col justify-center gap-6 md:gap-8">
         <div className="flex gap-6 items-center">
           <div className="flex gap-3 justify-center items-center">
             <img className="h-6 w-6" src={`/Home/clock.png`} alt="" />
@@ -56,12 +56,12 @@ export default ({ currentTrip }) => {
           </button>
         </div>
       </div>
-      <div className="flex-[2] p-8 flex relative justify-center items-center">
+      <div className="flex-[2] p-6 flex relative justify-center items-center">
         <Carousel
           responsive={responsive}
           draggable
           arrows={false}
-          className="h-full w-[80] md:w-[40vw]"
+          className="h-full w-full md:w-[40vw]"
           autoPlaySpeed={2000}
           focusOnSelect
           infinite={currentTrip?.images.length != 1}
@@ -73,7 +73,7 @@ export default ({ currentTrip }) => {
               key={index}
             >
               <img
-                className="rounded-3xl max-h-[calc(85vh-4rem)] object-contain"
+                className="rounded-3xl max-h-[17rem] md:max-h-[calc(85vh-4rem)] object-contain"
                 src={`${process.env.NEXT_PUBLIC_API_HOST}${imagePath}`}
                 alt="test"
               />
