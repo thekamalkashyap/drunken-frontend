@@ -22,6 +22,7 @@ export default function UploadTrips({ currentTrip }) {
     destination: "",
     roadmap: [],
     images: [],
+    itinerary:"",
   });
 
   const handleDeleteAccordion = (index) => {
@@ -90,11 +91,12 @@ export default function UploadTrips({ currentTrip }) {
           destination: formValues.destination,
           roadmap: formValues.roadmap,
           images: imageUrls,
+          itinerary:formValues.itinerary,
         };
 
         // Make a request to the server for authentication
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_HOST}/trips/updateTrip/${Tripid}`,
+          `${process.env.NEXT_PUBLIC_API_HOST}/api/trips/updateTrip/${Tripid}`,
           {
             method: "PUT",
             headers: {
@@ -130,6 +132,7 @@ export default function UploadTrips({ currentTrip }) {
       destination: currentTrip?.destination,
       roadmap: currentTrip?.roadmap,
       images: currentTrip?.images,
+      itinerary:currentTrip?.itinerary,
     });
     setAccordion(currentTrip?.roadmap);
   }, [currentTrip]);

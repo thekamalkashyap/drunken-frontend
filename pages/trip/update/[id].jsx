@@ -16,16 +16,21 @@ const Page = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("authToken")){
-      
+    if (localStorage.getItem("authToken")) {
     }
-  }, [])
-  
+  }, []);
+
   useEffect(() => {
     if (id && !currentTrip) {
       fetchTrip();
     }
   }, [id, currentTrip]);
+
+  useEffect(() => {
+    if (!localStorage.getItem("authToken")) {
+      router.push("/invalid_access");
+    }
+  }, []);
 
   return (
     <div className={`h-full w-full p-8`}>

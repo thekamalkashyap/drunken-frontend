@@ -1,10 +1,20 @@
 import Link from "next/link";
 import { ImageResponse } from "next/server";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
+const responsive = {
+  all: {
+    breakpoint: { max: 1664, min: 0 },
+    items: 1,
+    slidesToSlide: 1,
+  },
+};
 
 export default ({ currentTrip }) => {
   return (
     <div className="flex flex-col-reverse md:flex-row text-black">
-      <div className="flex-1 p-16 flex flex-col justify-center gap-6 md:gap-8">
+      <div className="flex-[3] p-6 md:p-16 flex flex-col justify-center gap-6 md:gap-8">
         <div className="flex gap-6 items-center">
           <div className="flex gap-3 justify-center items-center">
             <img className="h-6 w-6" src={`/Home/clock.png`} alt="" />
@@ -35,33 +45,56 @@ export default ({ currentTrip }) => {
             <span>
               <Link
                 href={`/contact_us?firstName=&lastName=&email=&tripName=${currentTrip?.title}`}
+                prefetch
               >
                 Book Now
               </Link>
             </span>
             <img className=" h-6 w-6 " src="/Home/calendarw.png" alt="" />
           </button>
-          <button className=" flex text-xl w-full justify-center gap-2 py-4 rounded-lg border-2 border-[#489CB0]">
-            Download full itenary
-          </button>
+          <a
+            href={`${process.env.NEXT_PUBLIC_API_HOST}${currentTrip?.itinerary}`}
+            Download="test_image"
+          >
+            <button className=" flex text-xl w-full justify-center gap-2 py-4 rounded-lg border-2 border-[#489CB0]">
+              Download full itenary
+            </button>
+          </a>
         </div>
       </div>
-      <div className="flex-1 p-8 flex justify-center items-center">
-        {currentTrip?.images.map((imagePath,index) => (
-          <img
-            key={index}
-            className="h-[calc(85vh-4rem)] rounded-3xl"
-            src={`${process.env.NEXT_PUBLIC_API_HOST}${imagePath}`}
-            alt="test"
-          />
-        ))}
-        {currentTrip?.images.length === 0 && (
-          <ImageResponse
-            className="h-[calc(85vh-4rem)] rounded-3xl"
-            src={`/test.png`}
-            alt="test"
-          />
-        )}
+      <div className="flex-[2] p-6 flex relative justify-center items-center">
+        <Carousel
+          responsive={responsive}
+          draggable
+          arrows={false}
+          className="h-full w-full md:w-[40vw]"
+          autoPlaySpeed={2000}
+          focusOnSelect
+          infinite={currentTrip?.images.length != 1}
+          autoPlay
+        >
+          {currentTrip?.images.map((imagePath, index) => (
+            <div
+              className=" flex justify-center bg-gray-50 items-center h-[80vh] w-full p-16"
+              key={index}
+            >
+              <img
+                className="rounded-3xl max-h-[17rem] md:max-h-[calc(85vh-4rem)] object-cover  h-full w-full"
+                src={`${process.env.NEXT_PUBLIC_API_HOST}${imagePath}`}
+                alt="test"
+              />
+            </div>
+          ))}
+          {currentTrip?.images.length === 0 && (
+            <div>
+              <ImageResponse
+                className="h-[calc(85vh-4rem)] rounded-3xl"
+                src={`/test.png`}
+                alt="test"
+              />
+            </div>
+          )}
+        </Carousel>
       </div>
     </div>
   );

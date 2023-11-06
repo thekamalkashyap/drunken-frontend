@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 export default function UploadTrips() {
   // State to manage file upload
   const [files, setFiles] = useState([]);
+  const [pdfFile, setPdfFile] = useState();
   const [imagesPaths, setImagesPaths] = useState([]);
 
   // State to manage form values
@@ -22,6 +23,7 @@ export default function UploadTrips() {
     destination: "",
     roadmap: [],
     images: [],
+    itinerary: "",
   });
 
   const handleDeleteAccordion = (index) => {
@@ -65,10 +67,11 @@ export default function UploadTrips() {
     event.preventDefault();
 
     const formData = new FormData();
+    const pdfFormData = new FormData();
     for (const file of files) {
       formData.append("files", file);
     }
-
+    pdfFormData.append("files", pdfFile);
     try {
       const fileResponse = await fetch(
         `${process.env.NEXT_PUBLIC_API_HOST}/api/upload`,
@@ -79,68 +82,83 @@ export default function UploadTrips() {
       );
 
       if (fileResponse.ok) {
-        const { imagePaths } = await fileResponse.json();
-        setImagesPaths(imagePaths);
-        const jsonData = {
-          title: formValues.title,
-          aboutTour: formValues.aboutTour,
-          inclusions: formValues.inclusions,
-          exclusions: formValues.exclusions,
-          price: formValues.price,
-          duration: formValues.duration,
-          startsAt: formValues.startsAt,
-          category: formValues.category,
-          destination: formValues.destination,
-          roadmap: formValues.roadmap,
-          images: imagePaths,
-        };
-
-        // Move the form submission inside the if block
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_HOST}/api/trips/uploadTrip`,
+        const pdfFileResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_API_HOST}/api/upload/itinerary`,
           {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              authToken: localStorage.getItem("authToken"),
-            },
-            body: stringify(jsonData),
+            body: pdfFormData,
           }
         );
+        if (pdfFileResponse.ok) {
+          const { imagePaths } = await fileResponse.json();
+          const { itineraryPaths } = await pdfFileResponse.json();
+          setImagesPaths(imagePaths);
+          const jsonData = {
+            title: formValues.title,
+            aboutTour: formValues.aboutTour,
+            inclusions: formValues.inclusions,
+            exclusions: formValues.exclusions,
+            price: formValues.price,
+            duration: formValues.duration,
+            startsAt: formValues.startsAt,
+            category: formValues.category,
+            destination: formValues.destination,
+            roadmap: formValues.roadmap,
+            images: imagePaths,
+            itinerary:itineraryPaths[0]
+          };
 
-        if (response.ok) {
-          const data = await response.json();
-          setTripUploaded(true);
-          setTripFailed(false);
-          setFormValues({
-            title: "",
-            aboutTour: "",
-            inclusions: "",
-            exclusions: "",
-            price: "",
-            duration: "",
-            startsAt: "",
-            category: "",
-            destination: "",
-            roadmap: [],
-            images: [],
-          });
-          setAccordion([]);
+          // Move the form submission inside the if block
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_HOST}/api/trips/uploadTrip`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                authToken: localStorage.getItem("authToken"),
+              },
+              body: stringify(jsonData),
+            }
+          );
+
+          if (response.ok) {
+            const data = await response.json();
+            setTripUploaded(true);
+            setTripFailed(false);
+            setFormValues({
+              title: "",
+              aboutTour: "",
+              inclusions: "",
+              exclusions: "",
+              price: "",
+              duration: "",
+              startsAt: "",
+              category: "",
+              destination: "",
+              roadmap: [],
+              images: [],
+            });
+            setAccordion([]);
+          } else {
+            setTripFailed(true);
+          }
         } else {
-          setTripFailed(true);
+          throw new Error("File Not Uploaded");
         }
-      } else {
-        throw new Error("File Not Uploaded");
       }
     } catch (error) {
-          setTripUploaded(false);
-          setTripFailed(true);
+      setTripUploaded(false);
+      setTripFailed(true);
       console.error("Error during authentication", error);
     }
   };
 
   const handleFileChange = (e) => {
     setFiles([...e.target.files]);
+  };
+
+  const handlePdfFileChange = (e) => {
+    setPdfFile([...e.target.files]);
   };
 
   return (
@@ -330,11 +348,28 @@ export default function UploadTrips() {
           <div className="relative z-0 w-full mb-6 group">
             <input
               type="file"
+              name="pdfFile"
+              id="pdfs"
+              onChange={handlePdfFileChange}
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              accept="application/pdf"
+            />
+            <label
+              htmlFor="pdfs"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Upload pdf
+            </label>
+          </div>
+          <div className="relative z-0 w-full mb-6 group">
+            <input
+              type="file"
               name="file"
               id="images"
               onChange={handleFileChange}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               accept="image/*"
+              multiple
             />
             <label
               htmlFor="images"
