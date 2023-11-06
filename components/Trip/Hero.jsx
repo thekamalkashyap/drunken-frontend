@@ -61,7 +61,7 @@ export default ({ currentTrip }) => {
           responsive={responsive}
           draggable
           arrows={false}
-          className="h-full w-[40vw]"
+          className="h-full w-[80] md:w-[40vw]"
           autoPlaySpeed={2000}
           focusOnSelect
           infinite={currentTrip?.images.length != 1}
@@ -73,7 +73,7 @@ export default ({ currentTrip }) => {
               key={index}
             >
               <img
-                className="rounded-3xl"
+                className="rounded-3xl max-h-[calc(85vh-4rem)] object-contain"
                 src={`${process.env.NEXT_PUBLIC_API_HOST}${imagePath}`}
                 alt="test"
               />

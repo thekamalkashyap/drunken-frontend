@@ -1,13 +1,20 @@
 import Heading from "../../Heading";
 
 export default ({ currentTrip }) => {
+  console.log(currentTrip);
+  console.log(currentTrip?.roadmap);
+  console.log(currentTrip?.roadmap.length);
   return (
     <div className="flex gap-6 flex-col px-8 md:px-16">
       <Heading>About the Tour</Heading>
       <div className="text-2xl flex flex-col gap-8">
         <p className="whitespace-pre-wrap">{currentTrip?.aboutTour}</p>
       </div>
-      <div className="join join-vertical my-12 w-full">
+      <div
+        className={`join join-vertical ${
+          currentTrip?.roadmap.length != 0 ? "my-12" : ""
+        } w-full`}
+      >
         {currentTrip?.roadmap.map((section, index) => {
           return (
             <div

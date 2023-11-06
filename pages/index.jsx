@@ -44,7 +44,7 @@ export default () => {
   }, [upcomingTrips]);
 
   return (
-    <div>
+    <div className=" pb-16 ">
       <ToastContainer
         position="top-right"
         autoClose={5000}
