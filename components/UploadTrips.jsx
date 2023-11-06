@@ -68,10 +68,12 @@ export default function UploadTrips() {
 
     const formData = new FormData();
     const pdfFormData = new FormData();
-    for (const file of files) {
-      formData.append("files", file);
+    if (files.length != 0) {
+      for (const file of files) {
+        formData.append("files", file);
+      }
     }
-    pdfFormData.append("files", pdfFile);
+    pdfFormData.append("pdfFile", pdfFile);
     try {
       const fileResponse = await fetch(
         `${process.env.NEXT_PUBLIC_API_HOST}/api/upload`,
@@ -91,7 +93,7 @@ export default function UploadTrips() {
         );
         if (pdfFileResponse.ok) {
           const { imagePaths } = await fileResponse.json();
-          const { itineraryPaths } = await pdfFileResponse.json();
+          const { itineraryPath } = await pdfFileResponse.json();
           setImagesPaths(imagePaths);
           const jsonData = {
             title: formValues.title,
@@ -105,7 +107,7 @@ export default function UploadTrips() {
             destination: formValues.destination,
             roadmap: formValues.roadmap,
             images: imagePaths,
-            itinerary:itineraryPaths[0]
+            itinerary:itineraryPath
           };
 
           // Move the form submission inside the if block
@@ -158,7 +160,7 @@ export default function UploadTrips() {
   };
 
   const handlePdfFileChange = (e) => {
-    setPdfFile([...e.target.files]);
+    setPdfFile(e.target.files[0]);
   };
 
   return (
@@ -353,6 +355,7 @@ export default function UploadTrips() {
               onChange={handlePdfFileChange}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               accept="application/pdf"
+              required
             />
             <label
               htmlFor="pdfs"
@@ -370,6 +373,7 @@ export default function UploadTrips() {
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               accept="image/*"
               multiple
+              required
             />
             <label
               htmlFor="images"

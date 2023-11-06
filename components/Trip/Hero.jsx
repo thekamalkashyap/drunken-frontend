@@ -45,7 +45,6 @@ export default ({ currentTrip }) => {
             <span>
               <Link
                 href={`/contact_us?firstName=&lastName=&email=&tripName=${currentTrip?.title}`}
-                prefetch
               >
                 Book Now
               </Link>
@@ -54,7 +53,7 @@ export default ({ currentTrip }) => {
           </button>
           <a
             href={`${process.env.NEXT_PUBLIC_API_HOST}${currentTrip?.itinerary}`}
-            Download="test_image"
+            download="test_image"
           >
             <button className=" flex text-xl w-full justify-center gap-2 py-4 rounded-lg border-2 border-[#489CB0]">
               Download full itenary

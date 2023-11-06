@@ -22,7 +22,7 @@ export default function UploadTrips({ currentTrip }) {
     destination: "",
     roadmap: [],
     images: [],
-    itinerary:"",
+    itinerary: "",
   });
 
   const handleDeleteAccordion = (index) => {
@@ -62,8 +62,10 @@ export default function UploadTrips({ currentTrip }) {
     event.preventDefault();
 
     const formData = new FormData();
-    for (const file of files) {
-      formData.append("files", file);
+    if (files.length != 0) {
+      for (const file of files) {
+        formData.append("files", file);
+      }
     }
 
     try {
@@ -91,7 +93,7 @@ export default function UploadTrips({ currentTrip }) {
           destination: formValues.destination,
           roadmap: formValues.roadmap,
           images: imageUrls,
-          itinerary:formValues.itinerary,
+          itinerary: formValues.itinerary,
         };
 
         // Make a request to the server for authentication
@@ -132,7 +134,7 @@ export default function UploadTrips({ currentTrip }) {
       destination: currentTrip?.destination,
       roadmap: currentTrip?.roadmap,
       images: currentTrip?.images,
-      itinerary:currentTrip?.itinerary,
+      itinerary: currentTrip?.itinerary,
     });
     setAccordion(currentTrip?.roadmap);
   }, [currentTrip]);

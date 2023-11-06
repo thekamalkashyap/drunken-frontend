@@ -43,7 +43,7 @@ export default function Card({ trip, className, id }) {
     <div>
       <div
         style={{
-          "background-image": `linear-gradient(to bottom, rgba(00, 00, 00, 0), rgba(0, 0, 0, 0.8)), url(${
+          "backgroundImage": `linear-gradient(to bottom, rgba(00, 00, 00, 0), rgba(0, 0, 0, 0.8)), url(${
             "n"
               ? "/Home/kashmir.png"
               : "http://13.200.33.190/uploads/1698587547296_manalicPic.png"

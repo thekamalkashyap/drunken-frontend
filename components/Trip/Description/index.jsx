@@ -1,9 +1,6 @@
 import Heading from "../../Heading";
 
 export default ({ currentTrip }) => {
-  console.log(currentTrip);
-  console.log(currentTrip?.roadmap);
-  console.log(currentTrip?.roadmap.length);
   return (
     <div className="flex gap-6 flex-col px-8 md:px-16">
       <Heading>About the Tour</Heading>
