@@ -5,7 +5,7 @@ export default function Card({ trip, className, id }) {
     <Link href={`/trip/${id}`} className="cursor-pointer">
       <div
         style={{
-          "background-image": `linear-gradient(to bottom, rgba(00, 00, 00, 0), rgba(0, 0, 0, 0.8)), url(${"/Home/kashmir.png"})`,
+          backgroundImage: `linear-gradient(to bottom, rgba(00, 00, 00, 0), rgba(0, 0, 0, 0.8)), url(${"/Home/kashmir.png"})`,
         }}
         className={cn(
           " flex text-white flex-col justify-end p-8 w-[300px] md:w-[450px] h-[300px] md:h-[400px] rounded-2xl bg-no-repeat bg-cover",
