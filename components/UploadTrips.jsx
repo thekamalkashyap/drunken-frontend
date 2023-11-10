@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 export default function UploadTrips() {
   // State to manage file upload
   const [files, setFiles] = useState([]);
-  const [pdfFile, setPdfFile] = useState();
+  // const [pdfFile, setPdfFile] = useState();
   const [imagesPaths, setImagesPaths] = useState([]);
 
   // State to manage form values
@@ -73,7 +73,11 @@ export default function UploadTrips() {
         formData.append("files", file);
       }
     }
-    pdfFormData.append("pdfFile", pdfFile);
+    // if (pdfFile.length != 0) {
+    //   for (const pdf of pdfFile) {
+    //     pdfFormData.append("pdfFile", pdfFile);
+    //   }
+    // }
     try {
       const fileResponse = await fetch(
         `${process.env.NEXT_PUBLIC_API_HOST}/api/upload`,
@@ -83,72 +87,69 @@ export default function UploadTrips() {
         }
       );
 
+      // if (fileResponse.ok) {
+      //   const pdfFileResponse = await fetch(
+      //     `${process.env.NEXT_PUBLIC_API_HOST}/api/upload/itinerary`,
+      //     {
+      //       method: "POST",
+      //       body: pdfFormData,
+      //     }
+      //   );
       if (fileResponse.ok) {
-        const pdfFileResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_HOST}/api/upload/itinerary`,
+        const { imagePaths } = await fileResponse.json();
+        // const { itineraryPath } = await pdfFileResponse.json();
+        setImagesPaths(imagePaths);
+        const jsonData = {
+          title: formValues.title,
+          aboutTour: formValues.aboutTour,
+          inclusions: formValues.inclusions,
+          exclusions: formValues.exclusions,
+          price: formValues.price,
+          duration: formValues.duration,
+          startsAt: formValues.startsAt,
+          category: formValues.category,
+          destination: formValues.destination,
+          roadmap: formValues.roadmap,
+          images: imagePaths,
+          // itinerary: itineraryPath,
+        };
+
+        // Move the form submission inside the if block
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_HOST}/api/trips/uploadTrip`,
           {
             method: "POST",
-            body: pdfFormData,
+            headers: {
+              "Content-Type": "application/json",
+              authToken: localStorage.getItem("authToken"),
+            },
+            body: stringify(jsonData),
           }
         );
-        console.log(pdfFileResponse.json())
-        if (pdfFileResponse.ok) {
-          const { imagePaths } = await fileResponse.json();
-          const { itineraryPath } = await pdfFileResponse.json();
-          setImagesPaths(imagePaths);
-          const jsonData = {
-            title: formValues.title,
-            aboutTour: formValues.aboutTour,
-            inclusions: formValues.inclusions,
-            exclusions: formValues.exclusions,
-            price: formValues.price,
-            duration: formValues.duration,
-            startsAt: formValues.startsAt,
-            category: formValues.category,
-            destination: formValues.destination,
-            roadmap: formValues.roadmap,
-            images: imagePaths,
-            itinerary:itineraryPath
-          };
 
-          // Move the form submission inside the if block
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_HOST}/api/trips/uploadTrip`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                authToken: localStorage.getItem("authToken"),
-              },
-              body: stringify(jsonData),
-            }
-          );
-
-          if (response.ok) {
-            const data = await response.json();
-            setTripUploaded(true);
-            setTripFailed(false);
-            setFormValues({
-              title: "",
-              aboutTour: "",
-              inclusions: "",
-              exclusions: "",
-              price: "",
-              duration: "",
-              startsAt: "",
-              category: "",
-              destination: "",
-              roadmap: [],
-              images: [],
-            });
-            setAccordion([]);
-          } else {
-            setTripFailed(true);
-          }
+        if (response.ok) {
+          const data = await response.json();
+          setTripUploaded(true);
+          setTripFailed(false);
+          setFormValues({
+            title: "",
+            aboutTour: "",
+            inclusions: "",
+            exclusions: "",
+            price: "",
+            duration: "",
+            startsAt: "",
+            category: "",
+            destination: "",
+            roadmap: [],
+            images: [],
+          });
+          setAccordion([]);
         } else {
-          console.log(pdfFileResponse.json());
-          throw new Error("File Not Uploaded");
+          setTripFailed(true);
         }
+      } else {
+        throw new Error("File Not Uploaded");
       }
     } catch (error) {
       setTripUploaded(false);
@@ -161,9 +162,9 @@ export default function UploadTrips() {
     setFiles([...e.target.files]);
   };
 
-  const handlePdfFileChange = (e) => {
-    setPdfFile(e.target.files[0]);
-  };
+  // const handlePdfFileChange = (e) => {
+  //   setPdfFile(e.target.files[0]);
+  // };
 
   return (
     <div>
@@ -349,7 +350,7 @@ export default function UploadTrips() {
               <option value="internationalTrip">International Trips</option>
             </select>
           </div>
-          <div className="relative z-0 w-full mb-6 group">
+          {/* <div className="relative z-0 w-full mb-6 group">
             <input
               type="file"
               name="pdfFile"
@@ -365,7 +366,7 @@ export default function UploadTrips() {
             >
               Upload pdf
             </label>
-          </div>
+          </div> */}
           <div className="relative z-0 w-full mb-6 group">
             <input
               type="file"

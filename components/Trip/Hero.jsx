@@ -51,14 +51,14 @@ export default ({ currentTrip }) => {
             </span>
             <img className=" h-6 w-6 " src="/Home/calendarw.png" alt="" />
           </button>
-          <a
+          {/* <a
             href={`${process.env.NEXT_PUBLIC_API_HOST}${currentTrip?.itinerary}`}
             download="test_image"
           >
             <button className=" flex text-xl w-full justify-center gap-2 py-4 rounded-lg border-2 border-[#489CB0]">
               Download full itenary
             </button>
-          </a>
+          </a> */}
         </div>
       </div>
       <div className="flex-[2] p-6 flex relative justify-center items-center">
